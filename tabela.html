@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Tabela Wyników — Zabawa Aktywnościowa 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0ede8; --card:#fff; --text:#1e1a17; --muted:#7a7068; --border:#ddd8d0;
+  --a:#c8392b; --a-soft:#faeae8; --a-mid:#e8553d;
+  --b:#1a5fa8; --b-soft:#e8f0fb; --b-mid:#2d7dd2;
+  --green:#2d8a56; --green-soft:#edf7f0;
+  --yellow:#b06a00; --yellow-soft:#fef3e2;
+  --shadow:0 1px 4px rgba(30,26,23,.07),0 4px 16px rgba(30,26,23,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:8rem}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:200;background:var(--text);color:#fff;padding:.7rem 1rem;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.topbar-inner{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.topbar-title{font-family:'Outfit',sans-serif;font-weight:800;font-size:.95rem;flex:1}
+.menu-item{
+  display:block;width:100%;text-align:left;padding:.7rem .85rem;
+  background:transparent;border:none;font-family:'DM Sans',sans-serif;
+  font-size:.85rem;font-weight:500;color:var(--text);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.menu-item:hover,.menu-item:active{background:var(--bg)}
+.vs-mini{display:flex;gap:8px;align-items:center}
+.vs-score{text-align:center;min-width:64px}
+.vs-score .s{font-family:'Outfit',sans-serif;font-weight:900;font-size:1.3rem;line-height:1}
+.vs-score .l{font-size:.65rem;opacity:.6;margin-top:1px}
+.vs-score.a .s{color:#ff8a7a}
+.vs-score.b .s{color:#7aafff}
+.vs-dot{font-weight:700;font-size:.8rem;opacity:.4}
+
+/* LAYOUT */
+.page{max-width:600px;margin:0 auto;padding:.75rem .85rem}
+
+/* TEAM IDENTITY CARD */
+.team-identity{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px 14px 0 0;border-bottom:none;
+  padding:.85rem 1rem;
+  display:flex;align-items:center;gap:12px;
+  position:relative;
+}
+.team-identity .team-logo{
+  width:56px;height:56px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;flex-shrink:0;
+  border:2px solid var(--border);background:var(--bg);
+}
+.team-identity .team-id-text{flex:1;min-width:0}
+.team-identity .team-id-name{
+  font-family:'Outfit',sans-serif;font-weight:900;
+  font-size:1.15rem;letter-spacing:-.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.team-identity .team-id-mascot{
+  font-size:.8rem;color:var(--muted);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.team-identity .edit-id-btn{
+  flex-shrink:0;padding:.4rem .65rem;border-radius:8px;
+  border:1.5px solid var(--border);background:transparent;
+  font-size:.75rem;font-weight:600;color:var(--muted);
+  cursor:pointer;white-space:nowrap;
+}
+.team-identity .edit-id-btn:hover{border-color:var(--a-mid);color:var(--a-mid)}
+
+/* IDENTITY EDIT SHEET */
+.id-edit-panel{
+  display:none;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:0 0 12px 12px;border-top:1px dashed var(--border);
+  padding:.85rem 1rem;margin-bottom:.75rem;
+}
+.id-edit-panel.open{display:block}
+.id-edit-grid{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:.65rem}
+.id-field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:80px}
+.id-field label{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.id-field input{
+  padding:.45rem .65rem;border:1.5px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.88rem;background:var(--bg);
+  color:var(--text);outline:none;transition:border-color .15s;
+}
+.id-field input:focus{border-color:var(--a-mid);background:#fff}
+.id-field.logo-field{max-width:72px}
+.id-field.logo-field input{font-size:1.4rem;text-align:center;padding:.3rem}
+.id-save-btn{
+  width:100%;padding:.55rem;border:none;border-radius:8px;
+  background:var(--a-mid);color:#fff;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;
+}
+.team-head{
+  display:flex;align-items:center;gap:8px;
+  padding:.6rem .85rem;border-radius:12px 12px 0 0;color:#fff;
+}
+.team-head.a{background:var(--a)}
+.team-head.b{background:var(--b)}
+.team-head-name{font-family:'Outfit',sans-serif;font-weight:900;font-size:1.1rem;flex:1}
+.team-head-pts{font-family:'Outfit',sans-serif;font-weight:800;font-size:1rem;opacity:.9}
+
+/* TABLE */
+.member-table{background:var(--card);border:1px solid var(--border);border-top:none;overflow:hidden}
+.trow{
+  display:grid;grid-template-columns:26px 1fr 44px 50px 60px;
+  align-items:center;gap:6px;
+  padding:.6rem .85rem;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .12s;
+}
+.trow:last-child{border-bottom:none}
+.trow:active,.trow:hover{background:var(--bg)}
+.trow.editing{background:#fffbf9}
+.rank{font-family:'Outfit',sans-serif;font-weight:800;font-size:.85rem;color:var(--muted);text-align:center}
+.rank.gold{color:#b8860b}
+.rank.silver{color:#888}
+.rank.bronze{color:#a05030}
+.member-name{font-weight:600;font-size:.88rem;line-height:1.2}
+.member-sub{font-size:.7rem;color:var(--muted);margin-top:1px;line-height:1}
+.col-days{font-size:.78rem;color:var(--muted);text-align:center}
+.col-km{font-size:.78rem;color:var(--muted);text-align:center}
+.col-pts{font-family:'Outfit',sans-serif;font-weight:800;font-size:1rem;text-align:right}
+.col-pts.a-pts{color:var(--a)}
+.col-pts.b-pts{color:var(--b)}
+.col-pts.zero{color:var(--border);font-size:.85rem;font-weight:500}
+
+/* TABLE HEADER */
+.thead{
+  display:grid;grid-template-columns:26px 1fr 44px 50px 60px;
+  gap:6px;padding:.35rem .85rem;
+  background:var(--bg);border-bottom:2px solid var(--border);
+  font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
+}
+.thead .col-days,.thead .col-km{text-align:center}
+.thead .col-pts{text-align:right}
+
+/* TEAM FOOTER */
+.team-foot{
+  background:var(--bg);border:1px solid var(--border);border-top:none;
+  border-radius:0 0 12px 12px;padding:.5rem .85rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;
+}
+.foot-item{font-size:.75rem;color:var(--muted)}
+.foot-item strong{font-family:'Outfit',sans-serif;font-weight:800;font-size:.9rem}
+.foot-item.a-col strong{color:var(--a)}
+.foot-item.b-col strong{color:var(--b)}
+
+/* EDIT PANEL (bottom sheet) */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.overlay.open{opacity:1;pointer-events:all}
+.sheet{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:var(--card);border-radius:18px 18px 0 0;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+.sheet.open{transform:translateY(0)}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:.75rem auto .25rem}
+.sheet-header{
+  display:flex;align-items:center;gap:10px;
+  padding:.6rem 1rem 1rem;border-bottom:1px solid var(--border);
+}
+.sheet-avatar{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:.9rem;flex-shrink:0;
+}
+.sheet-name{font-weight:700;font-size:1rem;flex:1}
+.sheet-pts{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.2rem}
+.sheet-close{
+  width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);
+  background:transparent;font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--muted);
+}
+
+/* WEEK GRID INSIDE SHEET */
+.week-grid{padding:.75rem 1rem}
+.day-row{margin-bottom:.6rem}
+.day-row-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:.35rem;
+}
+.day-label{
+  font-weight:700;font-size:.8rem;min-width:28px;
+}
+.day-pts-mini{font-size:.8rem;font-weight:600;margin-left:auto}
+.day-inputs{display:flex;gap:6px;flex-wrap:wrap}
+.input-group{display:flex;flex-direction:column;gap:3px;flex:1;min-width:90px;max-width:160px}
+.input-group label{font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.input-group input,.input-group select{
+  padding:.4rem .55rem;border:1.5px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.85rem;background:var(--bg);
+  color:var(--text);outline:none;transition:border-color .15s;
+}
+.input-group input:focus,.input-group select:focus{border-color:var(--a-mid);background:#fff}
+.run-del{
+  align-self:flex-end;width:28px;height:28px;border-radius:6px;
+  border:1.5px solid var(--border);background:transparent;
+  font-size:.9rem;cursor:pointer;color:var(--muted);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.btn-add-run{
+  font-size:.75rem;font-weight:600;color:var(--a-mid);
+  background:var(--a-soft);border:1.5px dashed #f5c5bb;border-radius:7px;
+  padding:.3rem .65rem;cursor:pointer;margin-top:2px;
+}
+.btn-add-run:disabled{opacity:.35;cursor:not-allowed}
+.divider{height:1px;background:var(--border);margin:.1rem 0 .6rem}
+.sheet-foot{
+  padding:.75rem 1rem 1rem;border-top:1px solid var(--border);
+  display:flex;gap:8px;
+}
+.btn-done{
+  flex:1;padding:.7rem;border:none;border-radius:10px;
+  background:var(--a-mid);color:#fff;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;
+}
+.btn-clear{
+  padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:10px;
+  background:transparent;font-family:'DM Sans',sans-serif;
+  font-size:.85rem;color:var(--muted);cursor:pointer;
+}
+
+/* DAY CHIPS summary */
+.day-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.dchip{
+  font-size:.68rem;padding:2px 7px;border-radius:10px;font-weight:500;
+}
+.dchip-run{background:var(--a-soft);color:var(--a)}
+.dchip-act{background:var(--green-soft);color:var(--green)}
+
+/* STARTUP DIALOG */
+.startup-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:1rem}
+.startup-box{background:#fff;border-radius:18px;padding:1.5rem 1.25rem;max-width:340px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+.startup-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:1.2rem;margin-bottom:.25rem;color:var(--text)}
+.startup-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.1rem}
+.startup-btn{display:block;width:100%;padding:.7rem .9rem;margin-bottom:.5rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);cursor:pointer;text-align:left;transition:border-color .15s}
+.startup-btn:hover,.startup-btn:active{border-color:var(--a-mid);background:var(--bg)}
+.startup-btn.primary{background:var(--a);border-color:var(--a);color:#fff}
+.startup-btn.primary:hover{background:#a82e23}
+.startup-btn .sbtn-sub{display:block;font-size:.72rem;font-weight:400;opacity:.7;margin-top:1px}
+/* SAVE-DATA button in topbar */
+#saveDataBtn{display:none;background:#f5a623;color:#fff;border:none;border-radius:7px;padding:.35rem .55rem;font-size:.68rem;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap}
+#saveDataBtn.visible{display:block}
+/* FILE STATUS dot */
+#fileStatus{font-size:.68rem;font-weight:700;flex-shrink:0;padding:.25rem .45rem;border-radius:6px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+/* AUTH */
+#authBtn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:.35rem .6rem;font-size:.72rem;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap}
+#authBtn:hover{background:rgba(255,255,255,.25)}
+.auth-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:1rem}
+.auth-box{background:#fff;border-radius:18px;padding:1.5rem 1.25rem;max-width:320px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+.auth-box h2{font-size:1.1rem;font-weight:900;margin-bottom:.25rem}
+.auth-box p{font-size:.8rem;color:#7a7068;margin-bottom:1.1rem}
+.auth-input{width:100%;padding:.65rem .8rem;border:1.5px solid #e8e2da;border-radius:10px;font-size:.9rem;margin-bottom:.6rem;box-sizing:border-box;font-family:inherit}
+.auth-input:focus{outline:none;border-color:#1e1a17}
+.auth-submit{width:100%;padding:.7rem;background:#1e1a17;color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.auth-err{font-size:.78rem;color:#e8553d;margin-bottom:.5rem;display:none}
+.sync-toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:#1e1a17;color:#fff;padding:.5rem 1rem;border-radius:20px;font-size:.78rem;font-weight:600;z-index:4000;opacity:0;transition:opacity .3s;pointer-events:none}
+</style>
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authModal" style="display:none">
+  <div class="auth-box">
+    <h2>🔐 Logowanie admina</h2>
+    <p>Wpisz email i hasło aby edytować dane.</p>
+    <div class="auth-err" id="authErr"></div>
+    <input class="auth-input" id="authEmail" type="email" placeholder="Email" autocomplete="email">
+    <input class="auth-input" id="authPass" type="password" placeholder="Hasło" autocomplete="current-password">
+    <button class="auth-submit" id="authSubmit" onclick="doSignIn()">Zaloguj się</button>
+    <button style="width:100%;margin-top:.5rem;padding:.55rem;background:none;border:none;color:#7a7068;font-size:.8rem;cursor:pointer" onclick="hideAuthModal()">Anuluj</button>
+  </div>
+</div>
+
+<!-- SYNC TOAST -->
+<div class="sync-toast" id="syncToast"></div>
+
+
+<!-- STARTUP DIALOG -->
+<div class="startup-overlay" id="startupDlg" style="display:none">
+  <div class="startup-box">
+    <div class="startup-title">🏆 Tabela Wyników</div>
+    <div class="startup-sub" id="startupSub">Jak wczytać dane?</div>
+    <button class="startup-btn primary" id="btnOpenFile" onclick="startupOpenFile()">
+      📂 Wczytaj plik <code>tabela_dane.json</code>
+      <span class="sbtn-sub">Polecanee — dane z ostatniej sesji</span>
+    </button>
+    <button class="startup-btn" id="btnUseBrowser" onclick="startupUseBrowser()">
+      🗄️ Kontynuuj z danymi z przeglądarki
+      <span class="sbtn-sub" id="browserDataInfo">sprawdzam…</span>
+    </button>
+    <button class="startup-btn" onclick="startupFresh()">
+      🆕 Rozpocznij pustą tabelę
+      <span class="sbtn-sub">Usuwa aktualne dane z przeglądarki</span>
+    </button>
+  </div>
+</div>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div style="position:relative">
+      <button id="menuBtn" onclick="toggleMenu()" style="width:36px;height:36px;background:rgba(255,255,255,.12);border:none;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex-shrink:0;padding:0">
+        <span style="display:block;width:16px;height:2px;background:#fff;border-radius:2px"></span>
+        <span style="display:block;width:16px;height:2px;background:#fff;border-radius:2px"></span>
+        <span style="display:block;width:16px;height:2px;background:#fff;border-radius:2px"></span>
+      </button>
+      <div id="dropMenu" style="display:none;position:absolute;top:44px;left:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.15);min-width:210px;z-index:500;overflow:hidden">
+        <div style="padding:.5rem .85rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--border)">Plik danych</div>
+        <button onclick="openDataFile();toggleMenu()" class="menu-item">📂 Otwórz tabela_dane.json</button>
+        <button onclick="saveDataFile();toggleMenu()" class="menu-item" id="menuSaveFile">💾 Zapisz tabela_dane.json</button>
+        <button onclick="downloadDataFile();toggleMenu()" class="menu-item">⬇️ Pobierz tabela_dane.json</button>
+        <div style="height:1px;background:var(--border);margin:.25rem 0"></div>
+        <button onclick="addMember();toggleMenu()" class="menu-item">➕ Dodaj zawodnika</button>
+        <div style="height:1px;background:var(--border);margin:.25rem 0"></div>
+        <div style="padding:.5rem .85rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Zarządzanie tygodniem</div>
+        <button onclick="closeWeek();toggleMenu()" class="menu-item">🔒 Zamknij Tydzień (zablokuj wyniki)</button>
+        <button onclick="startNewWeek();toggleMenu()" class="menu-item">🆕 Nowy Tydzień (wyczyść aktywności)</button>
+        <div style="height:1px;background:var(--border);margin:.25rem 0"></div>
+        <button onclick="setChallengeStart();toggleMenu()" class="menu-item">📅 Data startu zabawy</button>
+        <div style="height:1px;background:var(--border);margin:.25rem 0"></div>
+        <div style="padding:.5rem .85rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Eksport wyników</div>
+        <button onclick="exportResults();toggleMenu()" class="menu-item">📤 Generuj HTML (tylko odczyt)</button>
+        <button onclick="exportCSV();toggleMenu()" class="menu-item">📊 Eksportuj CSV (Excel)</button>
+        <div style="height:1px;background:var(--border);margin:.25rem 0"></div>
+        <button onclick="exportBackup();toggleMenu()" class="menu-item">📦 Zapisz backup (.json)</button>
+        <label class="menu-item" style="display:block;cursor:pointer">📂 Wczytaj backup (.json)<input type="file" accept=".json" onchange="importBackup(event);toggleMenu()" style="display:none"></label>
+      </div>
+    </div>
+    <div class="topbar-title">🏆 Tabela Wyników</div>
+    <div class="vs-mini">
+      <div class="vs-score a"><div class="s" id="tsA">0</div><div class="l">Drużyna A</div></div>
+      <div class="vs-dot">VS</div>
+      <div class="vs-score b"><div class="s" id="tsB">0</div><div class="l">Drużyna B</div></div>
+    </div>
+    <div id="fileStatus">●</div>
+    <button id="saveDataBtn" onclick="downloadDataFile()" title="Pobierz aktualny plik tabela_dane.json">💾 Pobierz dane</button>
+    <button id="authBtn" onclick="toggleAuth()" title="Logowanie/wylogowanie admina">👤</button>
+  </div>
+</div>
+
+<div class="page" id="page"></div>
+
+<!-- OVERLAY + SHEET -->
+<div class="overlay" id="overlay" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-avatar" id="shAvatar"></div>
+    <div style="flex:1">
+      <div class="sheet-name" id="shName"></div>
+      <div style="font-size:.75rem;color:var(--muted)" id="shTeam"></div>
+    </div>
+    <div class="sheet-pts" id="shPts"></div>
+    <button class="sheet-close" onclick="closeSheet()">×</button>
+  </div>
+  <div class="week-grid" id="shGrid"></div>
+  <div class="sheet-foot">
+    <button class="btn-clear" onclick="clearMember()">Wyczyść</button>
+    <button class="btn-done" onclick="closeSheet()">Gotowe ✓</button>
+    <button id="btnRemoveMember" style="background:none;border:1px solid #e8553d;color:#e8553d;border-radius:8px;padding:.45rem .75rem;font-size:.78rem;font-weight:700;cursor:pointer" onclick="removeMember(currentMemberId)">🗑️ Usuń</button>
+  </div>
+</div>
+
+<script>
+// ── MEMBERS ───────────────────────────────────────────────────
+// Domyślna lista — używana przy świeżym starcie lub gdy brak w danych
+const DEFAULT_MEMBERS = [
+  {id:'angela',    name:'Angela',       team:'A', initials:'An'},
+  {id:'kuba',      name:'Kuba',         team:'A', initials:'Ku'},
+  {id:'marta',     name:'Marta',        team:'A', initials:'Mt'},
+  {id:'kasia',     name:'Kasia Ł.',     team:'A', initials:'Ka'},
+  {id:'grzegorz',  name:'Grzegorz G',   team:'A', initials:'GG'},
+  {id:'malgorz_g', name:'Małgorzata G', team:'A', initials:'MG'},
+  {id:'wiola',     name:'Wiola',        team:'B', initials:'Wi'},
+  {id:'jarek',     name:'Jarek',        team:'B', initials:'Jr'},
+  {id:'madzia',    name:'Madzia',       team:'B', initials:'Md'},
+  {id:'mariusz',   name:'Mariusz',      team:'B', initials:'Ma'},
+  {id:'mateusz',   name:'Mateusz W',    team:'B', initials:'MW'},
+  {id:'julek',     name:'Julek',        team:'B', initials:'Ju'},
+  {id:'wojtek',    name:'Wojtek K',     team:'B', initials:'WK'},
+];
+let MEMBERS = DEFAULT_MEMBERS.map(m=>({...m}));
+let TEAM_A = MEMBERS.filter(m => m.team === 'A');
+let TEAM_B = MEMBERS.filter(m => m.team === 'B');
+function rebuildTeams(){
+  TEAM_A = MEMBERS.filter(m => m.team === 'A');
+  TEAM_B = MEMBERS.filter(m => m.team === 'B');
+}
+const DAYS_SHORT = ['Pon','Wt','Śr','Czw','Pt','Sob','Nd'];
+// ── CONSTANTS ─────────────────────────────────────────────────
+const DIST_TYPES=[
+  {v:'walk',l:'🚶 Spacer/marsz',mult:0.5},
+  {v:'bike',l:'🚴 Rower',       mult:0.2},
+  {v:'swim',l:'🏊 Pływanie',    mult:5.0},
+];
+const TIME_TYPES=[
+  {v:'gym',  l:'🏋️ Siłownia/ćwiczenia'},
+  {v:'yoga', l:'🧘 Joga/Pilates'},
+  {v:'dance',l:'💃 Taniec/Aerobik'},
+  {v:'fight',l:'⚔️ Walki'},
+  {v:'other',l:'💪 Inne'},
+];
+const DIST_LABELS={walk:'Spacer',bike:'Rower',swim:'Pływanie'};
+const TIME_LABELS={gym:'Siłownia',yoga:'Joga/Pilates',dance:'Taniec',fight:'Walki',other:'Trening'};
+
+// ═══════════════════════════════════════════════════════════════
+// SUPABASE — wpisz swoje dane po konfiguracji projektu:
+// ═══════════════════════════════════════════════════════════════
+const SB_URL  = 'https://vqgbhxtukitlezyizfpg.supabase.co/rest/v1/';   // np. 'https://abcxyz.supabase.co'
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxZ2JoeHR1a2l0bGV6eWl6ZnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjEwMzksImV4cCI6MjA5NjU5NzAzOX0.Mw-IlLs0ZAAeLJBOlfTw2-6z2kSr_u47Q2a0Qe7R5So';   // Anon public key z Supabase → Settings → API
+const SB_ROW  = 'zabawa2026';  // ID wiersza w tabeli (nie zmieniaj)
+
+// ── Supabase init ─────────────────────────────────────────────
+let _sb = null;
+let _sbUser = null;
+let _sbReady = false;
+
+function _sbInit(){
+  if(!SB_URL||!SB_KEY){ _sbReady=false; return; }
+  try{
+    _sb = window.supabase.createClient(SB_URL, SB_KEY);
+    _sbReady = true;
+    _sb.auth.onAuthStateChange((event, session)=>{
+      _sbUser = session ? session.user : null;
+      _updateAuthBtn();
+      if(event==='SIGNED_IN') _sbLoad();
+    });
+    _sb.auth.getSession().then(({data:{session}})=>{
+      _sbUser = session ? session.user : null;
+      _updateAuthBtn();
+    });
+    _sbSubscribe();
+  }catch(e){ console.error('Supabase init failed:', e); _sbReady=false; }
+}
+
+// ── Auth ──────────────────────────────────────────────────────
+function _updateAuthBtn(){
+  const btn = document.getElementById('authBtn');
+  if(!btn) return;
+  if(_sbUser){
+    btn.textContent = '👤 ' + (_sbUser.email||'').split('@')[0];
+    btn.title = 'Zalogowany: ' + _sbUser.email + '\nKliknij aby wylogować';
+  } else {
+    btn.textContent = '🔒 Admin';
+    btn.title = 'Kliknij aby zalogować się jako admin';
+  }
+}
+function toggleAuth(){
+  if(_sbUser){ if(confirm('Wylogować się?')) _sb.auth.signOut(); }
+  else showAuthModal();
+}
+function showAuthModal(){ document.getElementById('authModal').style.display='flex'; }
+function hideAuthModal(){ document.getElementById('authModal').style.display='none'; }
+async function doSignIn(){
+  const email = document.getElementById('authEmail').value.trim();
+  const pass  = document.getElementById('authPass').value;
+  const errEl = document.getElementById('authErr');
+  const btn   = document.getElementById('authSubmit');
+  errEl.style.display='none'; btn.disabled=true; btn.textContent='Logowanie…';
+  try{
+    const {data,error} = await _sb.auth.signInWithPassword({email,password:pass});
+    if(error) throw error;
+    hideAuthModal();
+    _showToast('✅ Zalogowano jako '+email);
+  }catch(e){
+    errEl.textContent = e.message||'Błąd logowania'; errEl.style.display='block';
+  }finally{
+    btn.disabled=false; btn.textContent='Zaloguj się';
+  }
+}
+
+// ── Load / Save ───────────────────────────────────────────────
+async function _sbLoad(){
+  if(!_sbReady||!_sb) return false;
+  try{
+    const {data,error} = await _sb.from('tabela_data').select('payload').eq('id',SB_ROW).single();
+    if(error&&error.code!=='PGRST116') throw error;
+    if(data&&data.payload){
+      _loadFromPayload(data.payload);
+      render();
+      _showToast('☁️ Dane wczytane z chmury');
+      return true;
+    }
+  }catch(e){ console.error('Supabase load error:',e); }
+  return false;
+}
+async function _sbSave(payload){
+  if(!_sbReady||!_sb||!_sbUser) return; // tylko zalogowani adminowie
+  try{
+    const {error} = await _sb.from('tabela_data')
+      .upsert({id:SB_ROW, payload, updated_at:new Date().toISOString()},
+              {onConflict:'id'});
+    if(error) throw error;
+  }catch(e){ console.error('Supabase save error:',e); }
+}
+
+// ── Real-time ─────────────────────────────────────────────────
+let _lastSaveTs = 0;
+function _sbSubscribe(){
+  if(!_sbReady||!_sb) return;
+  _sb.channel('tabela_realtime')
+    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'tabela_data'},
+      payload=>{
+        // Ignoruj własne zapisy (w ciągu 2 sek po naszym save)
+        if(Date.now()-_lastSaveTs < 2000) return;
+        if(payload.new&&payload.new.payload){
+          _loadFromPayload(payload.new.payload);
+          render();
+          _showToast('🔄 Drugi admin zaktualizował dane');
+        }
+      })
+    .subscribe();
+}
+
+// ── Toast ─────────────────────────────────────────────────────
+let _toastTimer=null;
+function _showToast(msg){
+  const t=document.getElementById('syncToast');
+  if(!t) return;
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>{ t.style.opacity='0'; },3000);
+}
+
+// ── STORAGE ───────────────────────────────────────────────────
+function emptyDays(){return Array(7).fill(null).map(()=>({runs:[],distActs:[],timeActs:[]}));}
+let state={};
+MEMBERS.forEach(m=>{state[m.id]=emptyDays();});
+let teamConfig={
+  A:{name:'Drużyna A',logo:'🔴',mascot:'',logoImg:null,mascotImg:null},
+  B:{name:'Drużyna B',logo:'🔵',mascot:'',logoImg:null,mascotImg:null}
+};
+let _fileHandle=null;
+let _lastUpdated=new Date().toISOString();
+let challengeStart='';
+let lockedWeeks=[];   // Zamknięte tygodnie — niezmienne historyczne snapshoty
+const FILE_API='showOpenFilePicker' in window;
+
+// ── Startup ──────────────────────────────────────────────────
+function _hasLocalData(){
+  try{const s=localStorage.getItem('tabela_v4');return!!s;}catch(e){return false;}
+}
+function _loadFromLocal(){
+  try{
+    const s=localStorage.getItem('tabela_v4');
+    if(s){
+      const d=JSON.parse(s);
+      if(d.members&&d.members.length){MEMBERS=d.members;rebuildTeams();}
+      if(d.state) MEMBERS.forEach(m=>{if(d.state[m.id])state[m.id]=d.state[m.id];});
+      if(d.teamConfig){
+        if(d.teamConfig.A)teamConfig.A={...teamConfig.A,...d.teamConfig.A};
+        if(d.teamConfig.B)teamConfig.B={...teamConfig.B,...d.teamConfig.B};
+      }
+      if(d.lockedWeeks)lockedWeeks=d.lockedWeeks;
+      if(d.lastUpdated)_lastUpdated=d.lastUpdated;
+      if(d.challengeStart)challengeStart=d.challengeStart;
+    }
+  }catch(e){}
+}
+function _loadFromPayload(payload){
+  if(payload.members&&payload.members.length){MEMBERS=payload.members;rebuildTeams();}
+  const src=payload.state||payload;
+  MEMBERS.forEach(m=>{if(src[m.id])state[m.id]=src[m.id];});
+  if(payload.teamConfig){
+    if(payload.teamConfig.A)teamConfig.A={...teamConfig.A,...payload.teamConfig.A};
+    if(payload.teamConfig.B)teamConfig.B={...teamConfig.B,...payload.teamConfig.B};
+  }
+  if(payload.lockedWeeks)lockedWeeks=payload.lockedWeeks;
+  _lastUpdated=payload.lastUpdated||payload.exported||new Date().toISOString();
+  if(payload.challengeStart)challengeStart=payload.challengeStart;
+}
+function _buildPayload(){
+  _lastUpdated=new Date().toISOString();
+  return{version:4,fileType:'tabela_dane',lastUpdated:_lastUpdated,
+         challengeStart,lockedWeeks,members:MEMBERS,state,teamConfig};
+}
+
+// ── Save ─────────────────────────────────────────────────────
+function save(){
+  const payload=_buildPayload();
+  // 1. localStorage (cache lokalny)
+  try{localStorage.setItem('tabela_v4',JSON.stringify(payload));}catch(e){}
+  // 2. Supabase (chmura) — tylko zalogowani
+  if(_sbReady&&_sbUser){
+    _lastSaveTs=Date.now();
+    _sbSave(payload);
+  }
+  // 3. File System API jeśli aktywny
+  if(_fileHandle) _writeToFile(_fileHandle,payload).catch(console.error);
+  _updateFileUI();
+}
+async function _writeToFile(handle,payload){
+  try{
+    const w=await handle.createWritable();
+    await w.write(JSON.stringify(payload,null,2));
+    await w.close();
+    _setFileStatus('✅','#4caf50');
+  }catch(e){_setFileStatus('❌','#e8553d');}
+}
+function _updateFileUI(){
+  const btn=document.getElementById('saveDataBtn');
+  if(btn) btn.classList.toggle('visible',!_fileHandle);
+  const ms=document.getElementById('menuSaveFile');
+  if(ms) ms.style.opacity=_fileHandle?'1':'0.4';
+  if(_fileHandle) _setFileStatus('📄','#4caf50');
+  else _setFileStatus('●','rgba(255,255,255,.5)');
+}
+function _setFileStatus(txt,color){
+  const el=document.getElementById('fileStatus');
+  if(el){el.textContent=txt;el.style.color=color;}
+}
+
+// ── File System Access API ────────────────────────────────────
+async function openDataFile(){
+  if(!FILE_API){alert('Ta przeglądarka nie obsługuje File System API.\nUżyj opcji "Pobierz" i "Wczytaj backup".');return;}
+  try{
+    const [h]=await window.showOpenFilePicker({
+      types:[{description:'Plik danych JSON',accept:{'application/json':['.json']}}]
+    });
+    const txt=await (await h.getFile()).text();
+    const d=JSON.parse(txt);
+    if(!confirm('Wczytać dane z pliku "'+(h.name)+'"?\nNadpisze aktualne dane.'))return;
+    _loadFromPayload(d);
+    _fileHandle=h;
+    _updateFileUI();
+    save();render();
+  }catch(e){if(e.name!=='AbortError')alert('Błąd: '+e.message);}
+}
+async function saveDataFile(){
+  if(!_fileHandle){await openDataFile();return;}
+  await _writeToFile(_fileHandle,_buildPayload());
+}
+function downloadDataFile(){
+  const blob=new Blob([JSON.stringify(_buildPayload(),null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='tabela_dane.json';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// ── Startup dialog ────────────────────────────────────────────
+function showStartupDialog(){
+  const dlg=document.getElementById('startupDlg');
+  if(!dlg)return;
+  const hasLocal=_hasLocalData();
+  const btn=document.getElementById('btnUseBrowser');
+  const info=document.getElementById('browserDataInfo');
+  if(btn&&info){
+    if(hasLocal){info.textContent='Dostępne dane z poprzedniej sesji';}
+    else{btn.style.opacity='0.4';btn.style.pointerEvents='none';info.textContent='Brak danych w przeglądarce';}
+  }
+  dlg.style.display='flex';
+}
+function _closeStartup(){
+  const dlg=document.getElementById('startupDlg');
+  if(dlg)dlg.style.display='none';
+  _updateFileUI();
+}
+async function startupOpenFile(){
+  if(!FILE_API){
+    // fallback: use file input
+    const inp=document.createElement('input');inp.type='file';inp.accept='.json';
+    inp.onchange=e=>{
+      importBackup(e);_closeStartup();
+    };
+    inp.click();return;
+  }
+  await openDataFile();
+  _closeStartup();
+}
+function startupUseBrowser(){
+  _loadFromLocal();
+  _closeStartup();
+  render();
+}
+function startupFresh(){
+  if(!confirm('Rozpocząć pustą tabelę?\nUsuwa dane z przeglądarki.'))return;
+  localStorage.removeItem('tabela_v4');
+  localStorage.removeItem('tabela_v3');
+  localStorage.removeItem('tabela_teamconfig');
+  MEMBERS.forEach(m=>{state[m.id]=emptyDays();});
+  teamConfig={A:{name:'Drużyna A',logo:'🔴',mascot:'',logoImg:null,mascotImg:null},
+              B:{name:'Drużyna B',logo:'🔵',mascot:'',logoImg:null,mascotImg:null}};
+  _fileHandle=null;
+  _closeStartup();
+  render();
+}
+
+// ── Numer bieżącego tygodnia ──────────────────────────────────
+// ── Data startu zabawy ────────────────────────────────────────
+function setChallengeStart(){
+  const fmt=d=>d.toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const currentLabel=challengeStart
+    ?'Aktualnie: '+fmt(new Date(challengeStart+' 12:00'))
+    :'Nie ustawiono — eksport używa numeru tygodnia kalendarzowego.';
+  const raw=prompt(
+    'Podaj datę rozpoczęcia zabawy (format RRRR-MM-DD):\n\n'+currentLabel+'\n\nNa tej podstawie eksport wyliczy:\n• Tydzień 1, Tydzień 2 …\n• Zakres dat tygodnia\n\nWpisz datę lub zostaw puste żeby wyczyścić:',
+    challengeStart||''
+  );
+  if(raw===null)return; // anulowano
+  const trimmed=raw.trim();
+  if(trimmed===''){
+    challengeStart='';
+    save();
+    alert('Data startu usunięta. Eksport wróci do numeru tygodnia kalendarzowego.');
+    return;
+  }
+  const d=new Date(trimmed+' 12:00');
+  if(isNaN(d.getTime())||!/^\d{4}-\d{2}-\d{2}$/.test(trimmed)){
+    alert('Nieprawidłowy format. Wpisz datę w formacie RRRR-MM-DD, np. 2026-06-02');
+    return;
+  }
+  challengeStart=trimmed;
+  save();
+  alert('✅ Start zabawy ustawiony: '+fmt(d));
+}
+
+// ── Zarządzanie składem ───────────────────────────────────────
+function _genId(name){
+  const base=name.toLowerCase()
+    .replace(/ą/g,'a').replace(/ć/g,'c').replace(/ę/g,'e').replace(/ł/g,'l')
+    .replace(/ń/g,'n').replace(/ó/g,'o').replace(/ś/g,'s').replace(/ź/g,'z').replace(/ż/g,'z')
+    .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+  let id=base, n=2;
+  while(MEMBERS.find(m=>m.id===id)) id=base+'_'+n++;
+  return id;
+}
+function _genInitials(name){
+  const p=name.trim().split(/\s+/);
+  return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():name.substring(0,2).toUpperCase();
+}
+
+function addMember(){
+  const name=(prompt('Imię i nazwisko (lub pseudonim nowego zawodnika):')||'').trim();
+  if(!name)return;
+  const t=(prompt('Drużyna? Wpisz A lub B:','')||'').trim().toUpperCase();
+  if(t!=='A'&&t!=='B'){alert('Podaj A lub B.');return;}
+  const id=_genId(name);
+  const initials=_genInitials(name);
+  const tn=t==='A'?(teamConfig.A.name||'Drużyna A'):(teamConfig.B.name||'Drużyna B');
+  if(!confirm('Dodać "'+name+'" do '+tn+'?\n\nID: '+id+'\nInitiały: '+initials))return;
+  MEMBERS.push({id,name,team:t,initials});
+  rebuildTeams();
+  state[id]=emptyDays();
+  save();render();
+  alert('✅ '+name+' dodany(a) do '+tn+'!');
+}
+
+function removeMember(id){
+  const m=MEMBERS.find(x=>x.id===id);
+  if(!m)return;
+  const tn=m.team==='A'?(teamConfig.A.name||'Drużyna A'):(teamConfig.B.name||'Drużyna B');
+  const hasDays=(state[id]||[]).some(d=>d.runs.length||d.distActs.length||d.timeActs.length);
+  const warn=hasDays?'\n\n⚠️ Zawodnik ma wpisane aktywności — dane pozostaną w pliku, ale nie będą liczone.':'';
+  if(!confirm('Usunąć "'+m.name+'" z '+tn+'?'+warn))return;
+  MEMBERS=MEMBERS.filter(x=>x.id!==id);
+  rebuildTeams();
+  closeSheet();
+  save();render();
+}
+
+// ── Numer bieżącego tygodnia ──────────────────────────────────
+function _weekNum(){
+  const now=new Date();
+  if(challengeStart){
+    const cs=new Date(challengeStart+' 12:00');
+    return Math.max(1,Math.floor((now-cs)/(7*24*60*60*1000))+1);
+  }
+  return Math.ceil((now-new Date(now.getFullYear(),0,1))/604800000);
+}
+
+// ── Zamknij bieżący tydzień ───────────────────────────────────
+function closeWeek(){
+  // Oblicz sugestię: jeśli dziś jest pierwszy dzień nowego tygodnia → N-1
+  const calcWn=_weekNum();
+  let suggestWn=calcWn;
+  if(challengeStart){
+    const cs=new Date(challengeStart+' 12:00');
+    const daysSince=Math.floor((new Date()-cs)/(24*60*60*1000));
+    if(daysSince>0&&daysSince%7===0) suggestWn=Math.max(1,calcWn-1);
+  }
+
+  const raw=prompt(
+    'Który tydzień zamykasz?\n\n'+
+    'Wpisz numer tygodnia (np. 1, 2, 3…).\n'+
+    'Dane z tabeli zostaną zapisane jako wyniki tego tygodnia.',
+    String(suggestWn)
+  );
+  if(raw===null) return;
+  const wn=parseInt(raw);
+  if(isNaN(wn)||wn<1){alert('Podaj poprawny numer tygodnia (liczba całkowita ≥ 1).');return;}
+
+  // Zbierz wszystkich z aktywnym state (aktywni + ewentualnie usunięci)
+  const allIds=new Set(MEMBERS.map(m=>m.id));
+  Object.keys(state).forEach(id=>{
+    if((state[id]||[]).some(d=>d.runs.length||d.distActs.length||d.timeActs.length))
+      allIds.add(id);
+  });
+
+  // Dla ID spoza aktualnego MEMBERS — ustal drużynę z lockedWeeks lub pomiń
+  const extraMembers=[];
+  allIds.forEach(id=>{
+    if(!MEMBERS.find(m=>m.id===id)){
+      // Szukaj w poprzednich snaphotach
+      let found=null;
+      lockedWeeks.forEach(w=>{
+        if(!found){
+          const inA=(w.teamA.members||[]).find(m=>m.id===id);
+          const inB=(w.teamB.members||[]).find(m=>m.id===id);
+          if(inA) found={id,name:inA.name,team:'A',initials:(inA.name||'?')[0]};
+          else if(inB) found={id,name:inB.name,team:'B',initials:(inB.name||'?')[0]};
+        }
+      });
+      if(found) extraMembers.push(found);
+    }
+  });
+
+  const histTeamA=[...TEAM_A,...extraMembers.filter(m=>m.team==='A')];
+  const histTeamB=[...TEAM_B,...extraMembers.filter(m=>m.team==='B')];
+
+  const hasData=histTeamA.concat(histTeamB).some(m=>
+    (state[m.id]||[]).some(d=>d.runs.length||d.distActs.length||d.timeActs.length));
+  if(!hasData){
+    alert('Brak aktywności do zamknięcia — tydzień jest pusty.');
+    return;
+  }
+
+  const rA=calcTeam(histTeamA);
+  const rB=calcTeam(histTeamB);
+  const capA=Math.round(200/histTeamA.length*10)/10;
+  const capB=Math.round(200/histTeamB.length*10)/10;
+  const tnA=teamConfig.A.name||'Drużyna A';
+  const tnB=teamConfig.B.name||'Drużyna B';
+
+  const extraNote=extraMembers.length
+    ? ('\n\nUwzględniono '+extraMembers.length+' zawodnik(ów) spoza aktualnego składu:\n  '+
+       extraMembers.map(m=>m.name+' (Dr.'+m.team+')').join(', ')):'';
+
+  const msg=
+    'ZAMKNIĘCIE TYGODNIA '+wn+'\n\n'+
+    tnA+': '+rA.grandTotal+' pkt  ('+histTeamA.length+' os., limit '+capA+'%)\n'+
+    tnB+': '+rB.grandTotal+' pkt  ('+histTeamB.length+' os., limit '+capB+'%)'+
+    extraNote+
+    '\n\nZamknąć Tydzień '+wn+'?\nWyniki zostaną zapamiętane.';
+
+  if(!confirm(msg)) return;
+
+  const snap={
+    weekNum:wn,
+    lockedAt:new Date().toISOString(),
+    challengeStart:challengeStart||null,
+    teamA:{
+      name:tnA, size:histTeamA.length, cap:capA,
+      cappedSum:rA.cappedSum, teamBonus:rA.teamBonusTotal, grandTotal:rA.grandTotal,
+      members:rA.results.map(m=>({
+        id:m.id, name:m.name, team:'A',
+        total:m.total, dailyPts:Math.round(m.dailyPts),
+        regBonus:m.regBonus, runBonus:m.runBonus,
+        contribution:Math.round(m.contribution),
+        totalKm:m.totalKm, activeDays:m.activeDays, capped:!!m.capped
+      }))
+    },
+    teamB:{
+      name:tnB, size:histTeamB.length, cap:capB,
+      cappedSum:rB.cappedSum, teamBonus:rB.teamBonusTotal, grandTotal:rB.grandTotal,
+      members:rB.results.map(m=>({
+        id:m.id, name:m.name, team:'B',
+        total:m.total, dailyPts:Math.round(m.dailyPts),
+        regBonus:m.regBonus, runBonus:m.runBonus,
+        contribution:Math.round(m.contribution),
+        totalKm:m.totalKm, activeDays:m.activeDays, capped:!!m.capped
+      }))
+    }
+  };
+
+  lockedWeeks=lockedWeeks.filter(w=>w.weekNum!==wn);
+  lockedWeeks.push(snap);
+  lockedWeeks.sort((a,b)=>a.weekNum-b.weekNum);
+  save();
+
+  if(confirm(
+    'Tydzień '+wn+' zamknięty! ✅\n\n'+
+    tnA+': '+rA.grandTotal+' pkt\n'+
+    tnB+': '+rB.grandTotal+' pkt\n\n'+
+    'Wyczyścić aktywności dla Tygodnia '+(wn+1)+'?'))
+    startNewWeek(true, wn+1);
+}
+
+// ── Nowy tydzień ──────────────────────────────────────────────
+function startNewWeek(skipConfirm, nextWeekNum){
+  // nextWeekNum: jeśli podany — używamy go (np. z closeWeek); jeśli nie — pytamy
+  const justClosed=lockedWeeks.length>0?Math.max(...lockedWeeks.map(w=>w.weekNum)):null;
+  const next=nextWeekNum||(justClosed?justClosed+1:_weekNum()+1);
+  const prevWn=next-1;
+  const isLocked=lockedWeeks.some(w=>w.weekNum===prevWn);
+  if(!skipConfirm){
+    const warn=isLocked?'':'\n\n⚠️ Tydzień '+prevWn+' nie jest zamknięty! Wyniki zostaną utracone.';
+    if(!confirm('Wyczyścić aktywności i zacząć Tydzień '+next+'?'+warn)) return;
+  }
+  MEMBERS.forEach(m=>{state[m.id]=emptyDays();});
+  save();render();
+  alert('Tydzień '+next+' zaczął się! 🏃');
+}
+
+// ── SCORING ───────────────────────────────────────────────────
+function timePts(dur){if(dur<20)return 0;if(dur<=40)return 20;if(dur<=60)return 30;if(dur<=90)return 40;return 50;}
+function distMult(type){return(DIST_TYPES.find(d=>d.v===type)||{mult:0}).mult;}
+
+function calcDay(d, timeBudget){
+  // timeBudget = ile aktywności czasowych można jeszcze zaliczyć w tygodniu (limit 4).
+  // Domyślnie bez limitu (Infinity) — dla pojedynczych podglądów.
+  if(timeBudget===undefined||timeBudget===null) timeBudget=Infinity;
+  const validRuns=d.runs.filter(r=>r.km>=3);
+  const hasRun=validRuns.length>0;
+  const runKm=validRuns.reduce((s,r)=>s+r.km,0);
+  const runKmPts=Math.round(runKm*5*10)/10;
+  const dists=(d.distActs||[]).filter(a=>a.type==='walk'?a.km>=3:a.km>0);
+  const distKmPts=Math.round(dists.reduce((s,a)=>s+a.km*distMult(a.type)*5,0)*10)/10;
+  const hasDistAct=dists.length>0;
+  const allTimes=(d.timeActs||[]).filter(a=>a.dur>=20);
+  const times=allTimes.slice(0, Math.max(0,timeBudget)); // tylko w ramach limitu tygodniowego
+  const hasTimeAct=times.length>0;
+  const timePtsTotal=times.reduce((s,a)=>s+timePts(a.dur),0);
+  const timeActsUsed=times.length;
+  const timeActsTotal=allTimes.length;
+  const timeOverLimit=timeActsTotal>timeActsUsed;
+  const hasAny=hasRun||hasDistAct||hasTimeAct;
+  if(!hasAny)return{pts:0,hasRun,hasDistAct,hasTimeAct,runKm,timeActsUsed:0,timeActsTotal,timeOverLimit};
+  // Bonus +20 zawsze raz dziennie + punkty za każdą aktywność osobno
+  let pts=20;
+  if(hasRun) pts+=runKmPts;
+  if(hasDistAct) pts+=distKmPts;
+  if(hasTimeAct) pts+=timePtsTotal;
+  return{pts:Math.round(pts*10)/10,hasRun,hasDistAct,hasTimeAct,runKm,timeActsUsed,timeActsTotal,timeOverLimit};
+}
+
+function calcMember(memberId){
+  const days=state[memberId];
+  let dailyPts=0,totalKm=0,runDays=0,activeDays=0,timeActCount=0;
+  const dayBreakdown=[];
+  let timeUsed=0; // licznik aktywności czasowych w tygodniu (limit 4)
+  days.forEach(d=>{
+    const budget=Math.max(0,4-timeUsed);
+    const dc=calcDay(d,budget);
+    timeUsed+=dc.timeActsUsed;
+    if(dc.pts>0)activeDays++;
+    if(dc.hasRun){runDays++;totalKm+=dc.runKm;}
+    timeActCount+=(d.timeActs||[]).filter(a=>a.dur>=20).length;
+    dailyPts+=dc.pts;
+    dayBreakdown.push(dc);
+  });
+  const regBonus=activeDays>=5?60:activeDays>=4?40:activeDays>=3?20:0;
+  const runBonus=runDays>=4?50:runDays>=3?25:runDays>=2?10:0;
+  const total=Math.round(dailyPts+regBonus+runBonus);
+  return{dailyPts,regBonus,runBonus,total,totalKm:Math.round(totalKm*10)/10,runDays,activeDays,timeActCount,dayBreakdown};
+}
+
+function calcTeam(members){
+  const cap=2/members.length; // 200% / n osob
+  const results=members.map(m=>({...m,...calcMember(m.id)}));
+  results.sort((a,b)=>b.total-a.total);
+  const rawSum=results.reduce((s,m)=>s+m.total,0);
+  const capPts=rawSum*cap;
+  results.forEach(m=>{ m.contribution=Math.min(m.total,capPts); m.capped=m.total>capPts+0.5; });
+  const cappedSum=Math.round(results.reduce((s,m)=>s+m.contribution,0));
+  let teamBonusTotal=0;
+  for(let di=0;di<7;di++){
+    let active=0;
+    results.forEach(m=>{
+      const dc=m.dayBreakdown[di]; // respektuje limit 4 czasówek tygodniowo
+      if(dc&&dc.pts>0)active++;
+    });
+    const pct=active/members.length;
+    if(pct>=1.0)teamBonusTotal+=120;
+    else if(pct>=0.8)teamBonusTotal+=90;
+    else if(pct>=0.6)teamBonusTotal+=60;
+    else if(pct>=0.4)teamBonusTotal+=30;
+  }
+  return{results,grandTotal:Math.round(cappedSum)+teamBonusTotal,cappedSum:Math.round(cappedSum),teamBonusTotal};
+}
+
+// ── RENDER ────────────────────────────────────────────────────
+function render(){
+  const tA=calcTeam(TEAM_A);const tB=calcTeam(TEAM_B);
+  // Zsumuj zamknięte tygodnie + bieżący tydzień
+  const lockedA=lockedWeeks.reduce((s,w)=>s+(w.teamA&&w.teamA.grandTotal||0),0);
+  const lockedB=lockedWeeks.reduce((s,w)=>s+(w.teamB&&w.teamB.grandTotal||0),0);
+  document.getElementById('tsA').textContent=tA.grandTotal+lockedA;
+  document.getElementById('tsB').textContent=tB.grandTotal+lockedB;
+  const page=document.getElementById('page');page.innerHTML='';
+  page.appendChild(buildTeamSection('A',tA,TEAM_A));
+  page.appendChild(buildTeamSection('B',tB,TEAM_B));
+}
+
+function buildTeamSection(teamLetter,teamData,members){
+  const sec=document.createElement('div');sec.className='team-section';
+  const cfg=teamConfig[teamLetter];
+  const color=teamLetter==='A'?'var(--a)':'var(--b)';
+
+  // ── Identity card ──
+  const identity=document.createElement('div');identity.className='team-identity';
+
+  const logo=document.createElement('div');logo.className='team-logo';
+  if(cfg.logoImg){
+    const img=document.createElement('img');
+    img.src=cfg.logoImg;
+    img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:10px';
+    logo.appendChild(img);
+  } else {
+    logo.textContent=cfg.logo||'🏃';
+  }
+  identity.appendChild(logo);
+
+  const idText=document.createElement('div');idText.className='team-id-text';
+  const idName=document.createElement('div');idName.className='team-id-name';
+  idName.style.color=color;
+  idName.textContent=cfg.name||`Drużyna ${teamLetter}`;
+  idText.appendChild(idName);
+  if(cfg.mascot||cfg.mascotImg){
+    const idMascot=document.createElement('div');idMascot.className='team-id-mascot';
+    idMascot.style.display='flex';idMascot.style.alignItems='center';idMascot.style.gap='6px';
+    if(cfg.mascotImg){
+      const mimg=document.createElement('img');mimg.src=cfg.mascotImg;
+      mimg.style.cssText='width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0';
+      idMascot.appendChild(mimg);
+    }
+    const mtxt=document.createElement('span');
+    mtxt.textContent=cfg.mascot?`🐾 ${cfg.mascot}`:'🐾 Maskotka';
+    idMascot.appendChild(mtxt);
+    idText.appendChild(idMascot);
+  } else {
+    const idMascot=document.createElement('div');idMascot.className='team-id-mascot';
+    idMascot.textContent='Kliknij ✏️ aby dodać nazwę i maskotkę';
+    idText.appendChild(idMascot);
+  }
+  identity.appendChild(idText);
+
+  const editBtn=document.createElement('button');editBtn.className='edit-id-btn';editBtn.textContent='✏️ Edytuj';
+  const editPanelId=`id-edit-${teamLetter}`;
+  editBtn.onclick=()=>{
+    const p=document.getElementById(editPanelId);
+    p.classList.toggle('open');
+    editBtn.textContent=p.classList.contains('open')?'✕ Zamknij':'✏️ Edytuj';
+  };
+  identity.appendChild(editBtn);
+  sec.appendChild(identity);
+
+  // ── Edit panel ──
+  const editPanel=document.createElement('div');
+  editPanel.className='id-edit-panel';editPanel.id=editPanelId;
+
+  const grid=document.createElement('div');grid.className='id-edit-grid';
+
+  const fLogo=document.createElement('div');fLogo.className='id-field logo-field';
+  fLogo.innerHTML='<label>Logo (emoji)</label>';
+  const inpLogo=document.createElement('input');inpLogo.type='text';inpLogo.value=cfg.logo||'';inpLogo.placeholder='🔴';inpLogo.maxLength=4;
+  fLogo.appendChild(inpLogo);
+
+  // Logo image upload
+  const fLogoImg=document.createElement('div');fLogoImg.className='id-field';fLogoImg.style.maxWidth='100px';
+  fLogoImg.innerHTML='<label>lub zdjęcie logo</label>';
+  const inpLogoImg=document.createElement('input');inpLogoImg.type='file';inpLogoImg.accept='image/jpeg,image/png';
+  inpLogoImg.style.cssText='font-size:.72rem;padding:.3rem .5rem;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);width:100%';
+  if(cfg.logoImg){
+    const prev=document.createElement('img');prev.src=cfg.logoImg;
+    prev.style.cssText='width:36px;height:36px;border-radius:6px;object-fit:cover;margin-top:4px;display:block';
+    fLogoImg.appendChild(prev);
+  }
+  inpLogoImg.onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{cfg.logoImg=ev.target.result;};
+    r.readAsDataURL(f);
+  };
+  fLogoImg.appendChild(inpLogoImg);
+
+  const fName=document.createElement('div');fName.className='id-field';fName.style.flex='2';
+  fName.innerHTML='<label>Nazwa drużyny</label>';
+  const inpName=document.createElement('input');inpName.type='text';inpName.value=cfg.name||'';inpName.placeholder=`Drużyna ${teamLetter}`;
+  fName.appendChild(inpName);
+
+  const fMascot=document.createElement('div');fMascot.className='id-field';fMascot.style.flex='2';
+  fMascot.innerHTML='<label>Maskotka (nazwa)</label>';
+  const inpMascot=document.createElement('input');inpMascot.type='text';inpMascot.value=cfg.mascot||'';inpMascot.placeholder='np. Lis, Orzeł...';
+  fMascot.appendChild(inpMascot);
+
+  // Mascot image upload
+  const fMascotImg=document.createElement('div');fMascotImg.className='id-field';fMascotImg.style.maxWidth='100px';
+  fMascotImg.innerHTML='<label>Zdjęcie maskotki</label>';
+  const inpMascotImg=document.createElement('input');inpMascotImg.type='file';inpMascotImg.accept='image/jpeg,image/png';
+  inpMascotImg.style.cssText='font-size:.72rem;padding:.3rem .5rem;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);width:100%';
+  if(cfg.mascotImg){
+    const prev=document.createElement('img');prev.src=cfg.mascotImg;
+    prev.style.cssText='width:36px;height:36px;border-radius:50%;object-fit:cover;margin-top:4px;display:block';
+    fMascotImg.appendChild(prev);
+  }
+  inpMascotImg.onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{cfg.mascotImg=ev.target.result;};
+    r.readAsDataURL(f);
+  };
+  fMascotImg.appendChild(inpMascotImg);
+
+  // Clear images button
+  const clearImgs=document.createElement('button');
+  clearImgs.style.cssText='font-size:.72rem;color:var(--muted);background:transparent;border:1.5px solid var(--border);border-radius:7px;padding:.3rem .65rem;cursor:pointer;margin-bottom:.5rem;display:block';
+  clearImgs.textContent='🗑 Usuń zdjęcia';
+  clearImgs.onclick=()=>{cfg.logoImg=null;cfg.mascotImg=null;renderSheetGrid&&renderSheetGrid(currentMemberId);save();render();};
+
+  grid.appendChild(fLogo);grid.appendChild(fLogoImg);grid.appendChild(fName);grid.appendChild(fMascot);grid.appendChild(fMascotImg);
+  editPanel.appendChild(grid);
+  editPanel.appendChild(clearImgs);
+
+  const saveBtn=document.createElement('button');saveBtn.className='id-save-btn';
+  saveBtn.style.background=teamLetter==='A'?'var(--a)':'var(--b)';
+  saveBtn.textContent='Zapisz';
+  saveBtn.onclick=()=>{
+    teamConfig[teamLetter].logo=inpLogo.value.trim()||'🏃';
+    teamConfig[teamLetter].name=inpName.value.trim()||`Drużyna ${teamLetter}`;
+    teamConfig[teamLetter].mascot=inpMascot.value.trim();
+    // logoImg and mascotImg already updated via onchange handlers
+    save();render();
+  };
+  editPanel.appendChild(saveBtn);
+  sec.appendChild(editPanel);
+  const hd=document.createElement('div');hd.className=`team-head ${teamLetter.toLowerCase()}`;
+  hd.innerHTML=`<span class="team-head-name">${cfg.name||'Drużyna '+teamLetter}</span><span class="team-head-pts">${teamData.grandTotal} pkt</span>`;
+  sec.appendChild(hd);
+  const tbl=document.createElement('div');tbl.className='member-table';
+  const thead=document.createElement('div');thead.className='thead';
+  thead.innerHTML='<div></div><div>Zawodnik</div><div class="col-days">Dni</div><div class="col-km">km</div><div class="col-pts">Pkt</div>';
+  tbl.appendChild(thead);
+  teamData.results.forEach((m,i)=>{
+    const row=document.createElement('div');row.className='trow';row.dataset.id=m.id;
+    const rankEl=document.createElement('div');rankEl.className='rank'+(i===0?' gold':i===1?' silver':i===2?' bronze':'');rankEl.textContent=i+1;row.appendChild(rankEl);
+    const nameEl=document.createElement('div');nameEl.innerHTML=`<div class="member-name">${m.name}</div>`;
+    if(m.total>0){
+      const chips=document.createElement('div');chips.className='day-chips';
+      m.dayBreakdown.forEach((d,di)=>{
+        if(d.pts>0){
+          const chip=document.createElement('span');
+          chip.className='dchip '+(d.hasRun?'dchip-run':d.hasDistAct?'dchip-dist':'dchip-act');
+          chip.textContent=DAYS_SHORT[di];chips.appendChild(chip);
+        }
+      });
+      nameEl.appendChild(chips);
+    } else {nameEl.innerHTML+='<div class="member-sub">brak aktywności</div>';}
+    row.appendChild(nameEl);
+    const daysEl=document.createElement('div');daysEl.className='col-days';daysEl.textContent=m.activeDays>0?m.activeDays:'—';row.appendChild(daysEl);
+    const kmEl=document.createElement('div');kmEl.className='col-km';kmEl.textContent=m.totalKm>0?m.totalKm+' km':'—';row.appendChild(kmEl);
+    const ptsEl=document.createElement('div');ptsEl.className=`col-pts ${teamLetter==='A'?'a-pts':'b-pts'}`+(m.total===0?' zero':'');
+    ptsEl.title=m.capped?`Limitowane: ${m.total} → ${m.contribution} pkt`:'';
+    ptsEl.innerHTML=m.total>0?(m.capped?`<span style="text-decoration:line-through;font-size:.75rem;opacity:.5">${m.total}</span> ${m.contribution}`:`${m.total}`):'0';row.appendChild(ptsEl);
+    row.onclick=()=>openSheet(m.id);
+    tbl.appendChild(row);
+  });
+  sec.appendChild(tbl);
+  const foot=document.createElement('div');foot.className='team-foot';
+  const cls=teamLetter==='A'?'a-col':'b-col';
+  foot.innerHTML=`<div class="foot-item ${cls}">Suma (limit ${Math.round(200/members.length)}%): <strong>${teamData.cappedSum}</strong></div><div class="foot-item">Bonus drużynowy: <strong style="color:var(--green)">${teamData.teamBonusTotal}</strong></div><div class="foot-item ${cls}">Łącznie: <strong>${teamData.grandTotal}</strong></div>`;
+  sec.appendChild(foot);
+  return sec;
+}
+
+// ── SHEET ─────────────────────────────────────────────────────
+let currentMemberId=null;
+function openSheet(memberId){
+  currentMemberId=memberId;
+  const m=MEMBERS.find(x=>x.id===memberId);
+  const res=calcMember(memberId);
+  const av=document.getElementById('shAvatar');
+  av.textContent=m.initials;av.style.background=m.team==='A'?'var(--a-soft)':'var(--b-soft)';av.style.color=m.team==='A'?'var(--a)':'var(--b)';
+  document.getElementById('shName').textContent=m.name;
+  document.getElementById('shTeam').textContent=`Drużyna ${m.team}`;
+  document.getElementById('shPts').textContent=res.total+' pkt';
+  document.getElementById('shPts').style.color=m.team==='A'?'var(--a)':'var(--b)';
+  renderSheetGrid(memberId);
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('sheet').classList.add('open');
+}
+function closeSheet(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('sheet').classList.remove('open');
+  save();render();
+}
+function clearMember(){
+  if(!currentMemberId)return;
+  if(confirm('Wyczyścić dane '+MEMBERS.find(m=>m.id===currentMemberId).name+'?')){
+    state[currentMemberId]=emptyDays();renderSheetGrid(currentMemberId);
+    document.getElementById('shPts').textContent=calcMember(currentMemberId).total+' pkt';
+  }
+}
+
+function renderSheetGrid(memberId){
+  const grid=document.getElementById('shGrid');grid.innerHTML='';
+  const days=state[memberId];
+  const res=calcMember(memberId);
+  const totalTimeActs=res.timeActCount;
+
+  const summary=document.createElement('div');
+  summary.style.cssText='display:flex;gap:12px;padding:.3rem 0 .75rem;border-bottom:1px solid var(--border);margin-bottom:.65rem;flex-wrap:wrap';
+  summary.innerHTML=`<span style="font-size:.78rem;color:var(--muted)">Aktywne dni: <strong style="color:var(--text)">${res.activeDays}</strong></span><span style="font-size:.78rem;color:var(--muted)">Run km: <strong style="color:var(--text)">${res.totalKm}</strong></span><span style="font-size:.78rem;color:var(--muted)">Czasowe: <strong style="color:var(--text)">${totalTimeActs}/4</strong></span><span style="font-size:.78rem;font-weight:700;color:var(--a-mid)">+${res.regBonus} reg · +${res.runBonus} bieg</span>`;
+  grid.appendChild(summary);
+
+  days.forEach((d,di)=>{
+    const dc=calcDay(d);
+    const dayDiv=document.createElement('div');dayDiv.className='day-row';
+    const head=document.createElement('div');head.className='day-row-head';
+    head.innerHTML=`<div class="day-label">${DAYS_SHORT[di]}</div>`;
+    const ptsLbl=document.createElement('div');ptsLbl.className='day-pts-mini';
+    ptsLbl.style.color=dc.pts>0?'var(--a-mid)':'var(--muted)';
+    ptsLbl.textContent=dc.pts>0?Math.round(dc.pts)+' pkt':'—';
+    head.appendChild(ptsLbl);dayDiv.appendChild(head);
+
+    // ── RUNS ──
+    const runWrap=document.createElement('div');runWrap.style.cssText='display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end;margin-bottom:.3rem';
+    d.runs.forEach((r,ri)=>{
+      const ig=document.createElement('div');ig.className='input-group';ig.style.maxWidth='120px';
+      ig.innerHTML=`<label>🏃 Bieg ${ri+1} (km)</label>`;
+      const inp=document.createElement('input');inp.type='number';inp.min='0';inp.step='0.1';inp.value=r.km;
+      inp.oninput=()=>{state[memberId][di].runs[ri].km=parseFloat(inp.value)||0;refreshSheet(memberId);};
+      ig.appendChild(inp);
+      const del=document.createElement('button');del.className='run-del';del.textContent='×';
+      del.onclick=()=>{state[memberId][di].runs.splice(ri,1);renderSheetGrid(memberId);};
+      runWrap.appendChild(ig);runWrap.appendChild(del);
+    });
+    if(d.runs.length<2){
+      const ab=document.createElement('button');ab.className='btn-add-run';ab.textContent=d.runs.length===0?'+ Bieg':'+ 2. bieg';
+      ab.onclick=()=>{state[memberId][di].runs.push({km:0});renderSheetGrid(memberId);};
+      runWrap.appendChild(ab);
+    }
+    dayDiv.appendChild(runWrap);
+
+    // ── DIST ACTS ──
+    const dists=d.distActs||[];
+    const distWrap=document.createElement('div');distWrap.style.cssText='display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end;margin-bottom:.3rem';
+    dists.forEach((a,ai)=>{
+      const igT=document.createElement('div');igT.className='input-group';
+      const isWalk=a.type==='walk';
+      igT.innerHTML='<label>🚴 Dystans</label>';
+      const sel=document.createElement('select');
+      DIST_TYPES.forEach(t=>{const o=document.createElement('option');o.value=t.v;o.textContent=t.l;if(t.v===a.type)o.selected=true;sel.appendChild(o);});
+      sel.onchange=()=>{state[memberId][di].distActs[ai].type=sel.value;renderSheetGrid(memberId);};
+      igT.appendChild(sel);
+      const igK=document.createElement('div');igK.className='input-group';igK.style.maxWidth='90px';
+      const lbl=a.type==='walk'?'km (min.3)':'km';
+      igK.innerHTML='<label>'+lbl+'</label>';
+      const inp=document.createElement('input');inp.type='number';inp.min='0';inp.step='0.1';inp.value=a.km;
+      inp.style.borderColor=(a.type==='walk'&&a.km>0&&a.km<3)?'var(--accent)':'';
+      inp.oninput=()=>{
+        state[memberId][di].distActs[ai].km=parseFloat(inp.value)||0;
+        inp.style.borderColor=(sel.value==='walk'&&inp.value>0&&parseFloat(inp.value)<3)?'var(--accent)':'';
+        refreshSheet(memberId);
+      };
+      igK.appendChild(inp);
+      const del=document.createElement('button');del.className='run-del';del.textContent='×';
+      del.onclick=()=>{state[memberId][di].distActs.splice(ai,1);renderSheetGrid(memberId);};
+      distWrap.appendChild(igT);distWrap.appendChild(igK);distWrap.appendChild(del);
+    });
+    const abDist=document.createElement('button');abDist.className='btn-add-run';
+    abDist.style.color='var(--blue)';abDist.style.background='var(--blue-soft)';abDist.style.borderColor='#b8cfef';
+    abDist.textContent='+ Spacer/Rower/Pływanie';
+    abDist.onclick=()=>{if(!state[memberId][di].distActs)state[memberId][di].distActs=[];state[memberId][di].distActs.push({type:'walk',km:0});renderSheetGrid(memberId);};
+    distWrap.appendChild(abDist);
+    dayDiv.appendChild(distWrap);
+
+    // ── TIME ACTS ──
+    const times=d.timeActs||[];
+    const timeWrap=document.createElement('div');timeWrap.style.cssText='display:flex;gap:6px;flex-wrap:wrap;align-items:flex-end;margin-bottom:.3rem';
+    times.forEach((a,ai)=>{
+      const igT=document.createElement('div');igT.className='input-group';igT.innerHTML='<label>💪 Trening</label>';
+      const sel=document.createElement('select');
+      TIME_TYPES.forEach(t=>{const o=document.createElement('option');o.value=t.v;o.textContent=t.l;if(t.v===a.type)o.selected=true;sel.appendChild(o);});
+      sel.onchange=()=>{state[memberId][di].timeActs[ai].type=sel.value;refreshSheet(memberId);};
+      igT.appendChild(sel);
+      const igD=document.createElement('div');igD.className='input-group';igD.style.maxWidth='80px';igD.innerHTML='<label>min</label>';
+      const inp=document.createElement('input');inp.type='number';inp.min='1';inp.step='5';inp.value=a.dur;
+      inp.oninput=()=>{state[memberId][di].timeActs[ai].dur=parseInt(inp.value)||0;refreshSheet(memberId);};
+      igD.appendChild(inp);
+      const del=document.createElement('button');del.className='run-del';del.textContent='×';
+      del.onclick=()=>{state[memberId][di].timeActs.splice(ai,1);renderSheetGrid(memberId);};
+      timeWrap.appendChild(igT);timeWrap.appendChild(igD);timeWrap.appendChild(del);
+    });
+    if(totalTimeActs<4||(times.length>0)){
+      const abTime=document.createElement('button');abTime.className='btn-add-run';
+      abTime.style.color='var(--green)';abTime.style.background='var(--green-soft)';abTime.style.borderColor='#b8ddc3';
+      abTime.disabled=totalTimeActs>=4;
+      abTime.textContent=totalTimeActs>=4?'⚠️ Limit 4/tydz':'+ Siłownia/Joga';
+      abTime.onclick=()=>{if(!state[memberId][di].timeActs)state[memberId][di].timeActs=[];state[memberId][di].timeActs.push({type:'gym',dur:60});renderSheetGrid(memberId);};
+      timeWrap.appendChild(abTime);
+    }
+    dayDiv.appendChild(timeWrap);
+
+    const div=document.createElement('div');div.style.cssText='height:1px;background:var(--border);margin:.4rem 0';
+    dayDiv.appendChild(div);
+    grid.appendChild(dayDiv);
+  });
+}
+
+function refreshSheet(memberId){
+  const res=calcMember(memberId);
+  document.getElementById('shPts').textContent=res.total+' pkt';
+  const ptsLabels=document.querySelectorAll('.day-pts-mini');
+  state[memberId].forEach((d,di)=>{
+    const dc=calcDay(d);
+    if(ptsLabels[di]){ptsLabels[di].textContent=dc.pts>0?Math.round(dc.pts)+' pkt':'—';ptsLabels[di].style.color=dc.pts>0?'var(--a-mid)':'var(--muted)';}
+  });
+}
+
+// ── DAY CHIP STYLES ──
+const styleEl=document.createElement('style');
+styleEl.textContent='.dchip-dist{background:var(--blue-soft);color:var(--blue)}';
+document.head.appendChild(styleEl);
+
+// ── EXPORT ────────────────────────────────────────────────────
+function exportResults(){
+  const tA=calcTeam(TEAM_A);
+  const tB=calcTeam(TEAM_B);
+  // Dodaj wyniki zamkniętych tygodni — łączny wynik zabawy (jak w topbarze admina)
+  const lockedA=lockedWeeks.reduce((s,w)=>s+(w.teamA&&w.teamA.grandTotal||0),0);
+  const lockedB=lockedWeeks.reduce((s,w)=>s+(w.teamB&&w.teamB.grandTotal||0),0);
+  tA.weekTotal=tA.grandTotal;       // wynik bieżącego tygodnia (do Kroniki)
+  tB.weekTotal=tB.grandTotal;
+  tA.grandTotal=tA.grandTotal+lockedA; // łączny wynik zabawy
+  tB.grandTotal=tB.grandTotal+lockedB;
+  const now=new Date();
+  const cfgA=teamConfig.A||{};const cfgB=teamConfig.B||{};
+  const tnA=cfgA.name||'Drużyna A';const tnB=cfgB.name||'Drużyna B';
+  const logoA=cfgA.logoImg?'<img src="'+cfgA.logoImg+'" style="width:40px;height:40px;border-radius:8px;object-fit:cover;vertical-align:middle">':'<span style="font-size:1.6rem">'+( cfgA.logo||'🔴')+'</span>';
+  const logoB=cfgB.logoImg?'<img src="'+cfgB.logoImg+'" style="width:40px;height:40px;border-radius:8px;object-fit:cover;vertical-align:middle">':'<span style="font-size:1.6rem">'+(cfgB.logo||'🔵')+'</span>';
+  const expDate=now.toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const updDate=_lastUpdated?new Date(_lastUpdated).toLocaleString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+  const DAY_FULL=['Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela'];
+  const DAY_SH=['Pn','Wt','Śr','Cz','Pt','Sb','Nd'];
+  const ICONS={walk:'🚶',bike:'🚴',swim:'🏊',gym:'🏋️',yoga:'🧘',dance:'💃',fight:'⚔️',other:'💪'};
+  const LN={walk:'Spacer',bike:'Rower',swim:'Pływanie',gym:'Siłownia',yoga:'Joga/Pilates',dance:'Taniec',fight:'Walki',other:'Trening'};
+
+  // Numer tygodnia i zakres dat
+  let wn, weekRange='';
+  if(challengeStart){
+    const cs=new Date(challengeStart+' 12:00');
+    const daysDiff=Math.floor((now-cs)/(24*60*60*1000));
+    wn=Math.max(1,Math.floor(daysDiff/7)+1);
+    const wkStart=new Date(cs.getTime()+(wn-1)*7*24*60*60*1000);
+    const wkEnd=new Date(wkStart.getTime()+6*24*60*60*1000);
+    const fmtD=d=>d.toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit'});
+    const fmtDY=d=>d.toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric'});
+    weekRange=fmtD(wkStart)+' – '+fmtDY(wkEnd);
+  }else{
+    wn=Math.ceil((now-new Date(now.getFullYear(),0,1))/604800000);
+  }
+
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function dayDots(breakdown){
+    return (breakdown||[]).map((d,i)=>{
+      if(!d||d.pts===0)return '<span style="color:#ddd">'+DAY_SH[i]+'</span>';
+      const c=d.hasRun?'#e8553d':d.hasDistAct?'#3068b8':'#2d8a56';
+      return '<span style="color:'+c+';font-weight:700">'+DAY_SH[i]+'</span>';
+    }).join(' ');
+  }
+
+  function actDetail(d, dc){
+    if(!d) return '<div style="color:#ccc;font-size:.78rem;font-style:italic;padding:.3rem 0">Brak aktywności</div>';
+    const runs=(d.runs||[]).filter(r=>r.km>=3);
+    const dists=(d.distActs||[]).filter(a=>a.type==='walk'?a.km>=3:a.km>0);
+    const allTimes=(d.timeActs||[]).filter(a=>a.dur>=20);
+    if(!runs.length&&!dists.length&&!allTimes.length)
+      return '<div style="color:#ccc;font-size:.78rem;font-style:italic;padding:.3rem 0">Brak aktywności</div>';
+    // ile czasówek zaliczono tego dnia (limit 4 tygodniowo) — z dayBreakdown
+    const timeUsed=dc&&typeof dc.timeActsUsed==='number'?dc.timeActsUsed:allTimes.length;
+    const rowS='font-size:.8rem;line-height:1.7';
+    let out='';
+    // Bonus dzienny — JEDNA linia, raz za aktywny dzień
+    out+='<div style="'+rowS+'">🎁 <b>Bonus dzienny: +20 pkt</b> <span style="color:#999">(raz za aktywny dzień)</span></div>';
+    // Biegi — tylko punkty za km (bez +20)
+    runs.forEach(r=>{
+      const pts=Math.round(r.km*5*10)/10;
+      out+='<div style="'+rowS+'">🏃 Bieg <b>'+r.km+' km</b> → '+r.km+' × 5 = <b style="color:#e8553d">+'+pts+' pkt</b></div>';
+    });
+    // Dystans — tylko punkty za km (bez +20)
+    dists.forEach(a=>{
+      const mult=distMult(a.type);const equiv=Math.round(a.km*mult*10)/10;const pts=Math.round(equiv*5*10)/10;
+      const ic=ICONS[a.type]||'🏃';
+      out+='<div style="'+rowS+'">'+ic+' '+(LN[a.type]||a.type)+' <b>'+a.km+' km</b> (×'+mult+') = <b style="color:#3068b8">+'+pts+' pkt</b></div>';
+    });
+    // Czasówki — pierwsze N zaliczone, reszta ponad limit = 0 pkt
+    allTimes.forEach((a,idx)=>{
+      const ic=ICONS[a.type]||'💪';
+      if(idx<timeUsed){
+        const tp=timePts(a.dur);
+        out+='<div style="'+rowS+'">'+ic+' '+(LN[a.type]||a.type)+' <b>'+a.dur+' min</b> → próg czasowy = <b style="color:#2d8a56">+'+tp+' pkt</b></div>';
+      }else{
+        out+='<div style="'+rowS+';color:#bbb">'+ic+' '+(LN[a.type]||a.type)+' <b>'+a.dur+' min</b> → <b>0 pkt</b> (ponad limit 4 aktywności czasowych w tygodniu)</div>';
+      }
+    });
+    // Razem dzień — zgodne z dayBreakdown
+    out+='<div style="font-size:.8rem;font-weight:700;margin-top:.35rem;padding-top:.3rem;border-top:1px dashed #e8e2da">Razem dzień: '+Math.round(dc?dc.pts:0)+' pkt</div>';
+    return out;
+  }
+
+  function memberCard(m,color,i){
+    const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
+    const capNote=m.capped?'<span style="font-size:.68rem;color:#b06a00;margin-left:4px">(limit: '+Math.round(m.contribution)+' pkt)</span>':'';
+    const breakdown=m.dayBreakdown||[];
+    let daysHtml='';
+    breakdown.forEach((d,di)=>{
+      const dc=d; // dayBreakdown już uwzględnia limit 4 aktywności czasowych
+      const hasAct=dc&&dc.pts>0;
+      const dayBg=hasAct?'#fff':'#fafafa';
+      const dayLabel=hasAct?'<span style="color:'+(dc.hasRun?'#e8553d':dc.hasDistAct?'#3068b8':'#2d8a56')+';font-weight:700">'+DAY_FULL[di]+'</span>':'<span style="color:#bbb">'+DAY_FULL[di]+'</span>';
+      daysHtml+='<div style="background:'+dayBg+';border-bottom:1px solid #f0ede8;padding:.5rem .75rem">'
+        +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem">'
+        +dayLabel
+        +(hasAct?'<span style="font-size:.78rem;font-weight:700;color:'+color+'">'+Math.round(dc.pts)+' pkt</span>':'<span style="font-size:.75rem;color:#ccc">—</span>')
+        +'</div>'
+        +actDetail((state[m.id]||[])[di], dc)
+        +'</div>';
+    });
+    return '<details style="background:#fff;border-radius:12px;overflow:hidden;margin-bottom:.5rem;box-shadow:0 1px 4px rgba(0,0,0,.08)">'
+      +'<summary style="display:block;cursor:pointer;list-style:none;padding:.75rem;-webkit-tap-highlight-color:rgba(0,0,0,.04)">'
+      +'<div style="display:flex;align-items:center;gap:8px">'
+      +'<span style="font-size:.88rem;min-width:26px;text-align:center;flex-shrink:0">'+medal+'</span>'
+      +'<span style="flex:1;min-width:0">'
+      +'<span style="font-weight:700;font-size:.92rem">'+esc(m.name)+'</span>'+capNote
+      +'<span style="display:block;font-size:.7rem;color:#aaa;margin-top:2px;letter-spacing:.04em">'+dayDots(m.dayBreakdown)+'</span>'
+      +'</span>'
+      +'<span style="font-size:.75rem;color:#999;white-space:nowrap;flex-shrink:0;margin-right:4px">'+m.activeDays+'d · '+m.totalKm+'km</span>'
+      +'<span style="font-family:Georgia,serif;font-weight:800;font-size:1.05rem;color:'+(m.capped?'#b06a00':color)+';min-width:46px;text-align:right;flex-shrink:0">'+m.total+'</span>'
+      +'<span style="font-size:1.15rem;color:#ccc;flex-shrink:0;width:22px;text-align:center">▾</span>'
+      +'</div>'
+      +'</summary>'
+      +'<div style="border-top:1px solid #f0ede8">'
+      +'<div style="padding:.55rem .75rem;background:#f8f5f0;font-size:.75rem;color:#666;display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid #f0ede8">'
+      +'<span>Aktywności: <b>'+Math.round(m.dailyPts)+' pkt</b></span>'
+      +'<span>Regularność: <b style="color:#2d8a56">+'+m.regBonus+'</b></span>'
+      +'<span>Bieganie: <b style="color:#e8553d">+'+m.runBonus+'</b></span>'
+      +(m.capped?'<span>Wkład (limit): <b style="color:#b06a00">'+Math.round(m.contribution)+' pkt</b></span>':'')
+      +'<span>Łącznie: <b style="color:'+color+'">'+m.total+' pkt</b></span>'
+      +'</div>'
+      +daysHtml
+      +'</div>'
+      +'</details>';
+  }
+
+  function teamSection(letter,td,color,colorLight,logo,tname){
+    const capPct=Math.round(200/td.results.length);
+    const mascotCfg=letter==='A'?cfgA:cfgB;
+    const mascotHtml=mascotCfg.mascot?'<span style="font-size:.78rem;opacity:.8;display:block;margin-top:2px">🐾 '+(mascotCfg.mascotImg?'<img src="'+mascotCfg.mascotImg+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;vertical-align:middle"> ':'')+(mascotCfg.mascot||'')+'</span>':'';
+    let members='';
+    td.results.forEach((m,i)=>{ members+=memberCard(m,color,i); });
+    return '<div>'
+      +'<div style="background:'+color+';color:#fff;padding:.85rem 1rem;border-radius:14px 14px 0 0;display:flex;align-items:center;gap:10px">'
+      +'<div style="width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">'+logo+'</div>'
+      +'<div style="flex:1"><div style="font-weight:900;font-size:1.05rem">'+esc(tname)+'</div>'+mascotHtml+'</div>'
+      +'<div style="font-weight:800;font-size:1.1rem">'+td.weekTotal+' pkt</div>'
+      +'</div>'
+      +'<div style="background:#f5f0ea;padding:.35rem .85rem;font-size:.67rem;color:#999;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">'
+      +'Tydzień '+wn+' · Suma (limit '+capPct+'%): '+td.cappedSum+'   ·   Bonus drużynowy: +'+td.teamBonusTotal+'</div>'
+      +members
+      +'</div>';
+  }
+
+  // Stats section
+  function statCard(title,icon,members,valFn,unit,col){
+    const sorted=[...members].sort((a,b)=>(valFn(b)||0)-(valFn(a)||0)).filter(m=>valFn(m));
+    if(!sorted.length)return'';
+    let rows='';
+    sorted.forEach((m,i)=>{
+      const medal=['🥇','🥈','🥉'][i]||(i+1)+'.';
+      const bg=m.team==='A'?(i%2===0?'#fff':'#fdecea'):(i%2===0?'#fff':'#e8f0fb');
+      rows+='<div style="display:flex;align-items:center;gap:6px;padding:.5rem .75rem;border-bottom:1px solid #f5f0ea;background:'+bg+'">'
+        +'<span style="min-width:26px;font-size:.85rem;text-align:center">'+medal+'</span>'
+        +'<span style="flex:1;font-size:.85rem;font-weight:600">'+esc(m.name)+'</span>'
+        +'<span style="font-size:.7rem;color:#aaa;margin-right:4px">Dr.'+m.team+'</span>'
+        +'<span style="font-weight:800;color:'+col+'">'+valFn(m)+'</span>'
+        +'<span style="font-size:.72rem;color:#aaa;margin-left:2px">'+unit+'</span>'
+        +'</div>';
+    });
+    return '<div style="background:#fff;border-radius:12px;overflow:hidden;margin-bottom:.75rem;box-shadow:0 1px 4px rgba(0,0,0,.07)">'
+      +'<div style="padding:.6rem .75rem;background:#f5f0ea;border-bottom:2px solid #e8e2da;font-weight:700;font-size:.88rem">'+icon+' '+esc(title)+'</div>'
+      +rows+'</div>';
+  }
+  const allM=[...tA.results,...tB.results];
+  function bestDay(m){return Math.max(0,...(m.dayBreakdown||[]).map(d=>d.pts||0))||null;}
+  const statsHtml=
+    statCard('Ranking punktowy','🏆',allM,m=>m.total,'pkt','#1e1a17')+
+    statCard('Kilometry biegowe','🏃',allM,m=>m.totalKm||null,'km','#e8553d')+
+    statCard('Aktywne dni','📅',allM,m=>m.activeDays||null,'dni','#2d8a56')+
+    statCard('Najlepszy dzień','⚡',allM,m=>bestDay(m),'pkt','#b06a00');
+
+  // ── KRONIKA i OSIĄGNIĘCIA ─────────────────────────────────────
+
+  // Pomocnicze: statystyki osobiste ze state
+  function mTimeMin(m){return(state[m.id]||[]).reduce((s,d)=>s+(d.timeActs||[]).filter(a=>a.dur>=20).reduce((ss,a)=>ss+a.dur,0),0);}
+  function mSwimKm(m){return(state[m.id]||[]).reduce((s,d)=>s+(d.distActs||[]).filter(a=>a.type==='swim'&&a.km>0).reduce((ss,a)=>ss+a.km,0),0);}
+  function mBikeKm(m){return(state[m.id]||[]).reduce((s,d)=>s+(d.distActs||[]).filter(a=>a.type==='bike'&&a.km>0).reduce((ss,a)=>ss+a.km,0),0);}
+  function mWalkKm(m){return(state[m.id]||[]).reduce((s,d)=>s+(d.distActs||[]).filter(a=>a.type==='walk'&&a.km>=3).reduce((ss,a)=>ss+a.km,0),0);}
+  function mBestDayPts(m){return Math.max(0,...(m.dayBreakdown||[]).map(d=>d.pts||0));}
+
+  const allMAll=[...tA.results,...tB.results];
+  const globalBestPts=Math.max(0,...allMAll.map(mBestDayPts));
+
+  // Wyścig drużyn dzień po dniu (potrzebny w zakładce Kronika)
+  const raceData=[];let rcA=0,rcB=0;
+  for(let di=0;di<7;di++){
+    let dA=0,dB=0,actA=0,actB=0;
+    tA.results.forEach(m=>{const dc=(m.dayBreakdown||[])[di];if(dc&&dc.pts>0){dA+=dc.pts;actA++;}});
+    tB.results.forEach(m=>{const dc=(m.dayBreakdown||[])[di];if(dc&&dc.pts>0){dB+=dc.pts;actB++;}});
+    const pA=actA/tA.results.length,pB=actB/tB.results.length;
+    const bonA=pA>=1?120:pA>=0.8?90:pA>=0.6?60:pA>=0.4?30:0;
+    const bonB=pB>=1?120:pB>=0.8?90:pB>=0.6?60:pB>=0.4?30:0;
+    rcA+=Math.round(dA)+bonA;rcB+=Math.round(dB)+bonB;
+    raceData.push({di,cumA:rcA,cumB:rcB,addA:Math.round(dA)+bonA,addB:Math.round(dB)+bonB,actA,actB});
+  }
+  const raceMax=Math.max(rcA,rcB,1);
+
+  // ── KRONIKA TYGODNIA ───────────────────────────────────────────
+  const totalActive=allMAll.filter(m=>m.activeDays>0).length;
+  const totalActs=allMAll.reduce((s,m)=>{
+    return s+(state[m.id]||[]).reduce((ss,d)=>{
+      return ss+(d.runs||[]).length+(d.distActs||[]).length+(d.timeActs||[]).filter(a=>a.dur>=20).length;
+    },0);
+  },0);
+  const totalKmAll=Math.round(allMAll.reduce((s,m)=>s+(m.totalKm||0),0)*10)/10;
+
+  function chrDayHtml(di){
+    const dayName=DAY_FULL[di];
+    const actA=tA.results.filter(m=>(m.dayBreakdown||[])[di]&&((m.dayBreakdown||[])[di]).pts>0);
+    const actB=tB.results.filter(m=>(m.dayBreakdown||[])[di]&&((m.dayBreakdown||[])[di]).pts>0);
+    const allDay=[...actA,...actB];
+    if(allDay.length===0){
+      return '<div class="chr-day chr-rest">'
+        +'<div class="chr-dn">'+dayName+'</div>'
+        +'<div class="chr-txt">Dzień odpoczynku — nikt nie był aktywny.</div></div>';
+    }
+    const withPts=allDay.map(m=>({m,pts:((m.dayBreakdown||[])[di]||{}).pts||0})).sort((a,b)=>b.pts-a.pts);
+    const top=withPts[0];
+    const topTm=tA.results.includes(top.m)?esc(tnA):esc(tnB);
+    const runners=allDay.filter(m=>((m.dayBreakdown||[])[di]||{}).hasRun)
+      .map(m=>({m,km:((m.dayBreakdown||[])[di]||{}).runKm||0})).sort((a,b)=>b.km-a.km);
+    let txt='';
+    const pctA=actA.length+'/'+tA.results.length+' z '+esc(tnA);
+    const pctB=actB.length+'/'+tB.results.length+' z '+esc(tnB);
+    txt+='<span style="color:#999">'+pctA+', '+pctB+'.</span> ';
+    if(actA.length===tA.results.length)txt+='<strong style="color:#c8392b">'+esc(tnA)+' 100% aktywna! 💯</strong> ';
+    if(actB.length===tB.results.length)txt+='<strong style="color:#1a5fa8">'+esc(tnB)+' 100% aktywna! 💯</strong> ';
+    txt+='Najlepiej: <strong>'+esc(top.m.name)+'</strong> ('+topTm+') — '+Math.round(top.pts)+' pkt. ';
+    if(runners.length>0&&runners[0].km>=5)txt+='Najdłuższy bieg: <strong>'+esc(runners[0].m.name)+'</strong> '+runners[0].km+' km. ';
+    if(withPts.length>1){
+      const second=withPts[1];
+      const s2tm=tA.results.includes(second.m)?esc(tnA):esc(tnB);
+      txt+='Tuż za nim(nią) '+esc(second.m.name)+' ('+s2tm+') z '+Math.round(second.pts)+' pkt.';
+    }
+    const dayColor=actA.length>actB.length?'#c8392b':actB.length>actA.length?'#1a5fa8':'#7a7068';
+    return '<div class="chr-day">'
+      +'<div class="chr-dn" style="color:'+dayColor+'">'+dayName+'</div>'
+      +'<div class="chr-txt">'+txt+'</div></div>';
+  }
+
+  // Prowadzenie po każdym dniu
+  let leadA=0,leadB=0,ties=0;
+  raceData.forEach(({cumA,cumB})=>{ if(cumA>cumB)leadA++; else if(cumB>cumA)leadB++; else ties++; });
+  const winnerTeam=tA.weekTotal>tB.weekTotal?esc(tnA):tB.weekTotal>tA.weekTotal?esc(tnB):'żadna z drużyn';
+  const diffFinal=Math.abs(tA.weekTotal-tB.weekTotal);
+
+  const chronicleHtml='<div style="padding:.75rem">'
+    +'<div style="background:#1e1a17;color:#fff;border-radius:12px;padding:.85rem 1rem;margin-bottom:.85rem">'
+    +'<div style="font-weight:900;font-size:1.1rem">📖 Kronika Tygodnia '+wn+'</div>'
+    +'<div style="font-size:.72rem;opacity:.6;margin-top:2px">Wygenerowano: '+expDate+' · Dane z: '+updDate+'</div>'
+    +'</div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:0;background:#fff;border-radius:12px;overflow:hidden;margin-bottom:.85rem;box-shadow:0 1px 4px rgba(0,0,0,.07)">'
+    +'<div style="flex:1;min-width:90px;padding:.65rem .75rem;border-right:1px solid #f0ede8;text-align:center">'
+    +'<div style="font-size:.6rem;color:#999">👥 Aktywni</div><div style="font-weight:800;font-size:1rem">'+totalActive+'/'+allMAll.length+'</div></div>'
+    +'<div style="flex:1;min-width:90px;padding:.65rem .75rem;border-right:1px solid #f0ede8;text-align:center">'
+    +'<div style="font-size:.6rem;color:#999">💪 Aktywności</div><div style="font-weight:800;font-size:1rem">'+totalActs+'</div></div>'
+    +'<div style="flex:1;min-width:90px;padding:.65rem .75rem;border-right:1px solid #f0ede8;text-align:center">'
+    +'<div style="font-size:.6rem;color:#999">🏃 Km łącznie</div><div style="font-weight:800;font-size:1rem">'+totalKmAll+'</div></div>'
+    +'<div style="flex:1;min-width:90px;padding:.65rem .75rem;text-align:center">'
+    +'<div style="font-size:.6rem;color:#999">📅 Prow. dni</div>'
+    +'<div style="font-weight:800;font-size:.85rem"><span style="color:#c8392b">A:'+leadA+'</span> <span style="color:#999">·</span> <span style="color:#1a5fa8">B:'+leadB+'</span></div></div>'
+    +'</div>'
+    +'<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:.85rem">'
+    +Array.from({length:7},(_,i)=>chrDayHtml(i)).join('')
+    +'</div>'
+    +'<div style="background:#fff;border-radius:12px;padding:.75rem;font-size:.82rem;line-height:1.7;box-shadow:0 1px 4px rgba(0,0,0,.07)">'
+    +'<strong>Podsumowanie:</strong> '
+    +(diffFinal===0
+      ? 'Remis! Obie drużyny zakończyły tydzień z takim samym wynikiem — '+tA.weekTotal+' pkt. 🤝'
+      : 'Tydzień wygrywa <strong>'+winnerTeam+'</strong> przewagą '+diffFinal+' pkt '
+        +'('+Math.max(tA.weekTotal,tB.weekTotal)+' vs '+Math.min(tA.weekTotal,tB.weekTotal)+').'
+    )
+    +'</div>'
+    +'</div>';
+
+  // Wyścig HTML (w tej samej zakładce)
+  const raceHtml='<div class="race-section">'
+    +'<div style="font-weight:700;font-size:.95rem;margin-bottom:.65rem">📈 Wyścig dzień po dniu</div>'
+    +raceData.map(function(rd){
+      const wA=Math.max(Math.round(rd.cumA/raceMax*100),3);
+      const wB=Math.max(Math.round(rd.cumB/raceMax*100),3);
+      const lead=rd.cumA>rd.cumB?esc(tnA)+' +' +(rd.cumA-rd.cumB)+' pkt':rd.cumA<rd.cumB?esc(tnB)+' +'+(rd.cumB-rd.cumA)+' pkt':'Remis!';
+      const lc=rd.cumA>rd.cumB?'#c8392b':rd.cumA<rd.cumB?'#1a5fa8':'#7a7068';
+      return '<div class="race-day">'
+        +'<div class="race-day-label">'+DAY_FULL[rd.di]
+        +'<span style="font-weight:400;color:#999;margin:0 6px">+'+rd.addA+' vs +'+rd.addB+'</span>'
+        +'<span style="color:'+lc+';font-style:italic">'+lead+'</span></div>'
+        +'<div class="race-bar" style="background:#c8392b;width:'+wA+'%">'+esc(tnA)+' · '+rd.cumA+'</div>'
+        +'<div class="race-bar" style="background:#1a5fa8;width:'+wB+'%">'+esc(tnB)+' · '+rd.cumB+'</div>'
+        +'</div>';
+    }).join('')
+    +'</div>';
+
+  // ── OSIĄGNIĘCIA KONKURENCYJNE ──────────────────────────────────
+  // Helper: first non-empty sorted result
+  function top1(arr,sortFn,minVal){
+    const s=arr.slice().sort(sortFn);
+    return minVal!==undefined?s.find(m=>sortFn({},m)<0||sortFn(m,{})<=0||true):s[0];
+  }
+
+  function awardCard(emoji,title,winner,detail,col){
+    if(!winner)return'';
+    return '<div class="aw-card">'
+      +'<div class="aw-icon" style="background:'+col+'22;color:'+col+'">'+emoji+'</div>'
+      +'<div class="aw-body">'
+      +'<div class="aw-title">'+esc(title)+'</div>'
+      +'<div class="aw-winner">'+esc(winner)+'</div>'
+      +'<div class="aw-detail">'+esc(detail)+'</div>'
+      +'</div></div>';
+  }
+
+  function teamAwards(td,col,tname){
+    const ms=td.results;
+    // Zawodnik tygodnia = najwyższy wkład
+    const mvp=ms.slice().sort((a,b)=>b.contribution-a.contribution)[0];
+    // Biegacz = najwięcej km
+    const runner=ms.filter(m=>m.totalKm>0).sort((a,b)=>b.totalKm-a.totalKm)[0];
+    // Wytrwałość = najwięcej aktywnych dni (tiebreak: więcej pkt)
+    const endure=ms.slice().sort((a,b)=>b.activeDays-a.activeDays||b.total-a.total)[0];
+    // Trener = najwięcej minut treningów czasowych
+    const trainer=ms.filter(m=>mTimeMin(m)>0).sort((a,b)=>mTimeMin(b)-mTimeMin(a))[0];
+    // Najlepszy dzień
+    const bestDay=ms.filter(m=>mBestDayPts(m)>0).sort((a,b)=>mBestDayPts(b)-mBestDayPts(a))[0];
+    // Specjalne: pływak, rowerzysta, spacerowicz (jeśli w drużynie ktoś to robił)
+    const swimmer=ms.filter(m=>mSwimKm(m)>0).sort((a,b)=>mSwimKm(b)-mSwimKm(a))[0];
+    const cyclist=ms.filter(m=>mBikeKm(m)>0).sort((a,b)=>mBikeKm(b)-mBikeKm(a))[0];
+    const walker=ms.filter(m=>mWalkKm(m)>0).sort((a,b)=>mWalkKm(b)-mWalkKm(a))[0];
+
+    let h='<div class="aw-team"><div class="aw-team-hdr" style="background:'+col+'">';
+    h+=logoA&&td===tA?logoA:logoB+'<span style="font-weight:900;font-size:1rem;margin-left:8px">'+esc(tname)+'</span>';
+    h+='<span style="font-size:.78rem;opacity:.7;margin-left:auto">'+td.weekTotal+' pkt (tydzień)</span></div>';
+    h+='<div class="aw-cards">';
+    if(mvp)h+=awardCard('🥇','Zawodnik tygodnia',mvp.name,Math.round(mvp.contribution)+' pkt wkładu do drużyny',col);
+    if(runner&&runner.totalKm>=3)h+=awardCard('🏃','Biegacz tygodnia',runner.name,runner.totalKm+' km biegiem',col);
+    if(endure&&endure.activeDays>=2){
+      const isUniq=!mvp||endure.id!==mvp.id||endure.activeDays>=(td.results.length>4?5:3);
+      if(endure.activeDays>=(mvp?mvp.activeDays+1:1)||!mvp||endure.id!==mvp.id)
+        h+=awardCard('📅','Najwytrwalszy(-a)',endure.name,endure.activeDays+' aktywnych dni w tygodniu',col);
+    }
+    if(trainer)h+=awardCard('💪','Trener tygodnia',trainer.name,mTimeMin(trainer)+' min treningów',col);
+    if(bestDay&&bestDay!==mvp)h+=awardCard('⚡','Najlepszy dzień',bestDay.name,Math.round(mBestDayPts(bestDay))+' pkt w jednym dniu',col);
+    if(swimmer)h+=awardCard('🏊','Pływak tygodnia',swimmer.name,Math.round(mSwimKm(swimmer)*10)/10+' km w basenie',col);
+    if(cyclist)h+=awardCard('🚴','Rowerzysta tygodnia',cyclist.name,Math.round(mBikeKm(cyclist)*10)/10+' km na rowerze',col);
+    if(walker)h+=awardCard('🚶','Spacerowicz tygodnia',walker.name,Math.round(mWalkKm(walker)*10)/10+' km spacerów',col);
+    h+='</div></div>';
+    return h;
+  }
+
+  // Nagroda globalna — mistrz całej zabawy
+  const globalChamp=allMAll.slice().sort((a,b)=>b.total-a.total)[0];
+  const globalChampTeam=tA.results.includes(globalChamp)?esc(tnA):esc(tnB);
+  const globalBestDay=allMAll.filter(m=>mBestDayPts(m)===globalBestPts&&globalBestPts>0);
+
+  const achHtml='<div style="padding:.75rem">'
+    // Global award
+    +'<div style="background:#1e1a17;color:#fff;border-radius:12px;padding:.85rem 1rem;margin-bottom:.85rem;display:flex;align-items:center;gap:12px">'
+    +'<span style="font-size:2rem">🌟</span>'
+    +'<div><div style="font-weight:900;font-size:1.05rem">Mistrz Tygodnia</div>'
+    +'<div style="font-size:.9rem;opacity:.9"><strong>'+esc(globalChamp.name)+'</strong> ('+globalChampTeam+') — '+globalChamp.total+' pkt</div>'
+    +(globalBestDay.length>0?'<div style="font-size:.72rem;opacity:.6;margin-top:2px">⚡ Rekord dnia: '+globalBestDay.map(m=>esc(m.name)).join(', ')+' — '+Math.round(globalBestPts)+' pkt</div>':'')
+    +'</div></div>'
+    // Per team
+    +'<div style="display:grid;grid-template-columns:1fr;gap:.75rem">'
+    +'<div style="@media(min-width:700px){grid-template-columns:1fr 1fr}">'
+    +teamAwards(tA,'#c8392b',tnA)
+    +teamAwards(tB,'#1a5fa8',tnB)
+    +'</div></div>'
+    +'</div>';
+
+  // CSS (system fonts, no external)
+  const css='*{margin:0;padding:0;box-sizing:border-box}'
+    +'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f0ede8;color:#1e1a17;padding-bottom:4rem}'
+    +'.sticky{position:sticky;top:0;z-index:100;background:#1e1a17;color:#fff;padding:.6rem .85rem;box-shadow:0 2px 8px rgba(0,0,0,.2)}'
+    +'.sticky-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}'
+    +'.sc{display:flex;align-items:center;gap:.4rem;flex:1;min-width:0}'
+    +'.sc-pts{font-weight:900;font-size:1.1rem}'
+    +'.sc-name{font-size:.72rem;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+    +'.sc-vs{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.4);flex-shrink:0;padding:0 .3rem}'
+    +'.info-bar{max-width:1100px;margin:.65rem auto .2rem;padding:0 .75rem}'
+    +'.info-box{background:#fff;border-radius:10px;padding:.6rem .85rem;font-size:.78rem;color:#7a7068;border-left:3px solid #e8553d}'
+    +'input[type=radio]{display:none}'
+    +'.tab-wrap{max-width:1100px;margin:.5rem auto 0;padding:0 .75rem}'
+    +'.tab-bar{display:flex;background:#fff;border-radius:10px 10px 0 0;border-bottom:2px solid #e8e2da;overflow:hidden}'
+    +'.tab-bar label{flex:1;text-align:center;padding:.6rem .5rem;font-size:.85rem;font-weight:700;color:#7a7068;cursor:pointer;-webkit-tap-highlight-color:transparent}'
+    +'#tx1:checked~.tab-wrap .tab-bar label[for=tx1],'
+    +'#tx2:checked~.tab-wrap .tab-bar label[for=tx2],'
+    +'#tx3:checked~.tab-wrap .tab-bar label[for=tx3],'
+    +'#tx4:checked~.tab-wrap .tab-bar label[for=tx4]{color:#1e1a17;border-bottom:3px solid #e8553d;margin-bottom:-2px}'
+    +'.tab-pane{display:none}'
+    +'#tx1:checked~.tab-wrap #px1{display:block}'
+    +'#tx2:checked~.tab-wrap #px2{display:block}'
+    +'#tx3:checked~.tab-wrap #px3{display:block}'
+    +'#tx4:checked~.tab-wrap #px4{display:block}'
+    +'.chr-day{padding:.6rem .75rem;border-bottom:1px solid #f0ede8;display:flex;gap:10px;align-items:flex-start}'
+    +'.chr-dn{font-weight:800;font-size:.78rem;min-width:96px;flex-shrink:0;padding-top:1px;color:#1e1a17}'
+    +'.chr-rest .chr-dn{color:#bbb}'
+    +'.chr-txt{font-size:.8rem;line-height:1.65;color:#3a3530}'
+    +'.chr-rest .chr-txt{color:#bbb;font-style:italic}'
+    +'.aw-team{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:.65rem;box-shadow:0 1px 5px rgba(0,0,0,.08)}'
+    +'.aw-team-hdr{padding:.75rem 1rem;display:flex;align-items:center;color:#fff}'
+    +'.aw-cards{display:grid;grid-template-columns:1fr 1fr;gap:0}'
+    +'@media(max-width:480px){.aw-cards{grid-template-columns:1fr}}'
+    +'.aw-card{display:flex;align-items:flex-start;gap:8px;padding:.6rem .75rem;border-bottom:1px solid #f5f0ea;border-right:1px solid #f5f0ea}'
+    +'.aw-icon{font-size:1.2rem;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}'
+    +'.aw-title{font-size:.65rem;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:.04em}'
+    +'.aw-winner{font-weight:800;font-size:.88rem;color:#1e1a17;margin:.1rem 0}'
+    +'.aw-detail{font-size:.72rem;color:#7a7068}'
+    +'.race-section{padding:.75rem;margin-top:.5rem}'
+    +'.race-day{margin-bottom:.75rem}'
+    +'.race-day-label{font-size:.7rem;font-weight:700;color:#7a7068;margin-bottom:4px}'
+    +'.race-bar{height:24px;border-radius:5px;display:flex;align-items:center;padding:0 8px;font-size:.7rem;font-weight:700;color:#fff;margin:3px 0;min-width:52px;white-space:nowrap;overflow:hidden}'
+    +'.ach-team{border-radius:14px;overflow:hidden;margin-bottom:.75rem;box-shadow:0 1px 5px rgba(0,0,0,.08)}'
+    +'.ach-header{padding:.85rem 1rem;display:flex;align-items:center;gap:10px}'
+    +'.ach-stats{display:flex;flex-wrap:wrap;border-bottom:2px solid #f0ede8;background:#fafafa}'
+    +'.ach-stat{flex:1;min-width:80px;padding:.55rem .65rem;border-right:1px solid #f0ede8;text-align:center}'
+    +'.ach-stat-label{font-size:.6rem;color:#999;line-height:1.4}'
+    +'.ach-stat-val{font-weight:800;font-size:.95rem}'
+    +'.ach-member{display:flex;align-items:center;gap:8px;padding:.6rem .75rem;border-bottom:1px solid #f5f0ea}'
+    +'.ach-badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}'
+    +'.ach-badge{font-size:.68rem;background:#f0ede8;border-radius:10px;padding:2px 6px;white-space:nowrap}'
+    +'.teams-grid{display:grid;grid-template-columns:1fr;gap:1rem;padding:.75rem}'
+    +'@media(min-width:700px){.teams-grid{grid-template-columns:1fr 1fr}}'
+    +'details>summary{display:block;list-style:none}'
+    +'details>summary::-webkit-details-marker,details>summary::marker{display:none}'
+    +'details[open]>summary .arr{transform:rotate(180deg)}'
+    +'.arr{display:inline-block;transition:transform .2s}'
+    +'@media print{.sticky{position:relative}}';
+
+  const diff=tA.grandTotal-tB.grandTotal;
+  const bannerTxt=diff===0?'🤝 Remis w klasyfikacji generalnej!'
+    :(diff>0?'🏆 Prowadzi '+esc(tnA)+' +'+diff+' pkt (łącznie)'
+            :'🏆 Prowadzi '+esc(tnB)+' +'+Math.abs(diff)+' pkt (łącznie)');
+  const bannerCol=diff===0?'#7a7068':diff>0?'#c8392b':'#1a5fa8';
+
+  const html='<!DOCTYPE html>'
+    +'<html lang="pl"><head>'
+    +'<meta charset="UTF-8">'
+    +'<meta name="viewport" content="width=device-width,initial-scale=1.0">'
+    +'<title>Wyniki — Tydzień '+wn+'</title>'
+    +'<style>'+css+'</style>'
+    +'</head><body>'
+    +'<input type="radio" id="tx1" name="tabs" checked>'
+    +'<input type="radio" id="tx2" name="tabs">'
+    +'<input type="radio" id="tx3" name="tabs">'
+    +'<input type="radio" id="tx4" name="tabs">'
+    +'<div class="sticky"><div class="sticky-inner">'
+    +'<div class="sc">'+logoA
+    +'<div><div class="sc-pts" style="color:#e8553d">'+tA.grandTotal+' pkt</div>'
+    +'<div class="sc-name">'+esc(tnA)+'</div></div></div>'
+    +'<div class="sc-vs">VS</div>'
+    +'<div class="sc" style="justify-content:flex-end;text-align:right">'+logoB
+    +'<div><div class="sc-pts" style="color:#3068b8">'+tB.grandTotal+' pkt</div>'
+    +'<div class="sc-name">'+esc(tnB)+'</div></div></div>'
+    +'</div></div>'
+    +'<div class="info-bar">'
+    +'<div class="info-box">'
+    +'<b>Tydzień '+wn+'</b>'+(weekRange?' ('+weekRange+')':'')+' · Eksport: '+expDate+' · Aktualizacja: '+updDate
+    +'<br><span style="color:#e8553d;font-weight:600">'+bannerTxt+'</span>'
+    +'<br><span style="font-size:.73rem">⬇️ Dotknij zawodnika, aby sprawdzić czy Twoje aktywności zostały zapisane poprawnie.</span>'
+    +'</div></div>'
+    +'<div class="tab-wrap">'
+    +'<div class="tab-bar">'
+    +'<label for="tx1">🏆 Wyniki</label>'
+    +'<label for="tx2">📊 Statystyki</label>'
+    +'<label for="tx3">🗓️ Tydzień</label>'
+    +'<label for="tx4">🏅 Osiągnięcia</label>'
+    +'</div>'
+    +'<div class="tab-pane" id="px1">'
+    +'<div class="teams-grid">'
+    +teamSection('A',tA,'#c8392b','#fdecea',logoA,tnA)
+    +teamSection('B',tB,'#1a5fa8','#e8f0fb',logoB,tnB)
+    +'</div>'
+    +'<div style="text-align:center;font-size:.7rem;color:#bbb;padding:.5rem">Zabawa Aktywnościowa 2026 · tylko do odczytu</div>'
+    +'</div>'
+    +'<div class="tab-pane" id="px2"><div style="padding:.75rem">'+statsHtml+'</div></div>'
+    +'<div class="tab-pane" id="px3">'+chronicleHtml+raceHtml+'</div>'
+    +'<div class="tab-pane" id="px4">'+achHtml+'</div>'
+    +'</div>'
+    +'</body></html>';
+
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  // Nazwa: wyniki_DDMMYYYY_XX.html — data + kolejny eksport danego dnia
+  const dd=String(now.getDate()).padStart(2,'0');
+  const mm=String(now.getMonth()+1).padStart(2,'0');
+  const yyyy=now.getFullYear();
+  const dateKey=dd+mm+yyyy;
+  const expKey='export_v_'+dateKey;
+  let xx=parseInt(localStorage.getItem(expKey)||'0')+1;
+  localStorage.setItem(expKey,String(xx));
+  const xxStr=String(xx).padStart(2,'0');
+  a.href=url;a.download='wyniki_'+dateKey+'_'+xxStr+'.html';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// ── MENU ──────────────────────────────────────────────────────
+function toggleMenu(){
+  const m=document.getElementById('dropMenu');
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+document.addEventListener('click',e=>{
+  const btn=document.getElementById('menuBtn');
+  const menu=document.getElementById('dropMenu');
+  if(menu&&btn&&!btn.contains(e.target)&&!menu.contains(e.target)){
+    menu.style.display='none';
+  }
+});
+
+// ── BACKUP / RESTORE ──────────────────────────────────────────
+function exportBackup(){
+  const now=new Date();
+  const dd=String(now.getDate()).padStart(2,'0');
+  const mm=String(now.getMonth()+1).padStart(2,'0');
+  const yyyy=now.getFullYear();
+  const dateKey=dd+mm+yyyy;
+  const vKey='backup_v_'+dateKey;
+  let v=parseInt(localStorage.getItem(vKey)||'0')+1;
+  localStorage.setItem(vKey,String(v));
+  const fname='backup_'+dateKey+'_v'+v+'.json';
+  const backup={...(_buildPayload()),backupType:'backup',backupDate:now.toISOString()};
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=fname;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function importBackup(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const backup=JSON.parse(e.target.result);
+      if(!backup.state&&!backup.teamConfig){
+        alert('Nieprawidłowy plik backup — brak danych aktywności i konfiguracji drużyn.');
+        return;
+      }
+      const confirm_msg=`Wczytać backup z ${backup.exported?new Date(backup.exported).toLocaleString('pl-PL'):'nieznanej daty'}?\n\nNadpisze wszystkie aktualne dane.`;
+      if(!confirm(confirm_msg))return;
+      if(backup.state){
+        MEMBERS.forEach(m=>{
+          if(backup.state[m.id]){
+            state[m.id]=backup.state[m.id];
+          }
+        });
+      }
+      if(backup.teamConfig){
+        if(backup.teamConfig.A)teamConfig.A={...teamConfig.A,...backup.teamConfig.A};
+        if(backup.teamConfig.B)teamConfig.B={...teamConfig.B,...backup.teamConfig.B};
+      }
+      save();render();
+      alert('✅ Backup wczytany pomyślnie!');
+    }catch(err){
+      alert('Błąd wczytywania pliku: '+err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value=''; // Reset input so same file can be reloaded
+}
+
+// ── CSV EXPORT ────────────────────────────────────────────────
+function exportCSV(){
+  const DAY_SHORT=['Pon','Wt','Sr','Czw','Pt','Sob','Nd'];
+  const now=new Date();
+  const week=Math.ceil((now-new Date(now.getFullYear(),0,1))/604800000);
+
+  const rows=[];
+
+  // Header
+  rows.push([
+    'Imie','Druzyna',
+    ...DAY_SHORT.map(d=>`${d}_bieg_km`),
+    ...DAY_SHORT.map(d=>`${d}_dystans_km`),
+    ...DAY_SHORT.map(d=>`${d}_dystans_typ`),
+    ...DAY_SHORT.map(d=>`${d}_trening_min`),
+    ...DAY_SHORT.map(d=>`${d}_trening_typ`),
+    ...DAY_SHORT.map(d=>`${d}_pkt`),
+    'Pkt_aktywnosci','Bonus_regularnosc','Bonus_biegowy','Razem','Wklad_do_druzyny'
+  ]);
+
+  // Calculate teams for individual caps
+  const tA=calcTeam(TEAM_A);
+  const tB=calcTeam(TEAM_B);
+  const allResults=[...tA.results,...tB.results];
+
+  MEMBERS.forEach(m=>{
+    const days=state[m.id];
+    const res=calcMember(m.id);
+    const teamRes=allResults.find(r=>r.id===m.id);
+    const contribution=teamRes?Math.round(teamRes.contribution):res.total;
+
+    rows.push([
+      m.name,
+      `Druzyna ${m.team}`,
+      // Bieg km per day
+      ...days.map(d=>{
+        const km=d.runs.filter(r=>r.km>=3).reduce((s,r)=>s+r.km,0);
+        return km>0?km:'';
+      }),
+      // Dystans km per day
+      ...days.map(d=>{
+        const da=d.distActs||[];
+        return da.length>0?da.map(a=>a.km).join('+'):'';
+      }),
+      // Dystans typ per day
+      ...days.map(d=>{
+        const da=d.distActs||[];
+        return da.length>0?da.map(a=>DIST_LABELS[a.type]||a.type).join('+'):'';
+      }),
+      // Trening minuty per day
+      ...days.map(d=>{
+        const ta=(d.timeActs||[]).filter(a=>a.dur>=20);
+        return ta.length>0?ta.map(a=>a.dur).join('+'):'';
+      }),
+      // Trening typ per day
+      ...days.map(d=>{
+        const ta=(d.timeActs||[]).filter(a=>a.dur>=20);
+        return ta.length>0?ta.map(a=>TIME_LABELS[a.type]||a.type).join('+'):'';
+      }),
+      // Punkty per day
+      ...days.map(d=>{
+        const dc=calcDay(d);
+        return dc.pts>0?Math.round(dc.pts):'';
+      }),
+      Math.round(res.dailyPts),
+      res.regBonus,
+      res.runBonus,
+      res.total,
+      contribution
+    ]);
+  });
+
+  rows.push([]);
+
+  // Team summaries
+  [['A',tA],['B',tB]].forEach(([letter,td])=>{
+    const empty=Array(35).fill('');
+    rows.push([`DRUZYNA ${letter} - suma indyw. tydzien (limit ${Math.round(200/td.results.length)}%)`, '', ...empty, '','','','', td.cappedSum]);
+    rows.push([`DRUZYNA ${letter} - bonus druzyny (tydzien)`, '', ...empty, '','','','', td.teamBonusTotal]);
+    rows.push([`DRUZYNA ${letter} - WYNIK TYGODNIA`, '', ...empty, '','','','', td.grandTotal]);
+    rows.push([]);
+  });
+
+  // CSV encode (with BOM for Excel)
+  const csv=rows.map(row=>
+    row.map(v=>{
+      const s=String(v===null||v===undefined?'':v);
+      return s.includes(',')||s.includes('"')||s.includes('\n')?`"${s.replace(/"/g,'""')}"`:s;
+    }).join(',')
+  ).join('\r\n');
+
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`wyniki_tydzien_${week}.csv`;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+render();
+// Inicjalizuj Supabase; jeśli skonfigurowany — wczytaj z chmury, inaczej startup dialog
+_sbInit();
+if(_sbReady){
+  // Supabase skonfigurowany: spróbuj wczytać; jeśli brak danych → dialog
+  _sbLoad().then(loaded=>{ if(!loaded) showStartupDialog(); });
+} else {
+  // Brak Supabase: klasyczny dialog (localStorage / plik / pustka)
+  showStartupDialog();
+}
+</script>
+</body>
+</html>
