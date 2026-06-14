@@ -17,19 +17,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 .live-indicator{flex-basis:100%;text-align:center;font-size:.65rem;font-weight:700;letter-spacing:.05em;opacity:.85;padding-top:.2rem;cursor:pointer}
 .info-bar{max-width:1100px;margin:.65rem auto .2rem;padding:0 .75rem}
 .info-box{background:#fff;border-radius:10px;padding:.6rem .85rem;font-size:.78rem;color:#7a7068;border-left:3px solid #e8553d}
-input[type=radio]{display:none}
 .tab-wrap{max-width:1100px;margin:.5rem auto 0;padding:0 .75rem}
 .tab-bar{display:flex;background:#fff;border-radius:10px 10px 0 0;border-bottom:2px solid #e8e2da;overflow:hidden}
 .tab-bar label{flex:1;text-align:center;padding:.6rem .5rem;font-size:.85rem;font-weight:700;color:#7a7068;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#tx1:checked~.tab-wrap .tab-bar label[for=tx1],
-#tx2:checked~.tab-wrap .tab-bar label[for=tx2],
-#tx3:checked~.tab-wrap .tab-bar label[for=tx3],
-#tx4:checked~.tab-wrap .tab-bar label[for=tx4]{color:#1e1a17;border-bottom:3px solid #e8553d;margin-bottom:-2px}
+.tab-bar label.active{color:#1e1a17;border-bottom:3px solid #e8553d;margin-bottom:-2px}
 .tab-pane{display:none}
-#tx1:checked~.tab-wrap #px1{display:block}
-#tx2:checked~.tab-wrap #px2{display:block}
-#tx3:checked~.tab-wrap #px3{display:block}
-#tx4:checked~.tab-wrap #px4{display:block}
+.tab-pane.active{display:block}
 .chr-day{padding:.6rem .75rem;border-bottom:1px solid #f0ede8;display:flex;gap:10px;align-items:flex-start}
 .chr-dn{font-weight:800;font-size:.78rem;min-width:96px;flex-shrink:0;padding-top:1px;color:#1e1a17}
 .chr-rest .chr-dn{color:#bbb}
@@ -66,11 +59,6 @@ details>summary::-webkit-details-marker,details>summary::marker{display:none}
 </head>
 <body>
 
-<input type="radio" id="tx1" name="tabs" checked>
-<input type="radio" id="tx2" name="tabs">
-<input type="radio" id="tx3" name="tabs">
-<input type="radio" id="tx4" name="tabs">
-
 <div class="sticky"><div class="sticky-inner" id="stickyInner">
   <div class="sc"><span style="font-size:1.6rem">⏳</span><div><div class="sc-pts">—</div><div class="sc-name">Wczytywanie…</div></div></div>
 </div></div>
@@ -87,9 +75,9 @@ details>summary::-webkit-details-marker,details>summary::marker{display:none}
 // "tabela_data" table allows SELECT to everyone but restricts
 // INSERT/UPDATE/DELETE to authenticated admins only.
 // ═══════════════════════════════════════════════════════════════
-const SB_URL  = 'https://vqgbhxtukitlezyizfpg.supabase.co';   // e.g. 'https://abcxyz.supabase.co'
-const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxZ2JoeHR1a2l0bGV6eWl6ZnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjEwMzksImV4cCI6MjA5NjU5NzAzOX0.Mw-IlLs0ZAAeLJBOlfTw2-6z2kSr_u47Q2a0Qe7R5So';   // anon public key from Supabase → Settings → API
-const SB_ROW  = 'zabawa2026';  // row id (must match tabela_admin.html)
+const SB_URL  = 'https://vqgbhxtukitlezyizfpg.supabase.co';   // np. 'https://abcxyz.supabase.co'
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxZ2JoeHR1a2l0bGV6eWl6ZnBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjEwMzksImV4cCI6MjA5NjU5NzAzOX0.Mw-IlLs0ZAAeLJBOlfTw2-6z2kSr_u47Q2a0Qe7R5So';   // Anon public key z Supabase → Settings → API
+const SB_ROW  = 'zabawa2026';  // ID wiersza w tabeli (nie zmieniaj)
 
 // ── CONSTANTS ─────────────────────────────────────────────────
 const DIST_TYPES=[
@@ -557,12 +545,12 @@ function renderApp(payload){
     +'</div></div>'
     +'<div class="tab-wrap">'
     +'<div class="tab-bar">'
-    +'<label for="tx1">🏆 Wyniki</label>'
-    +'<label for="tx2">📊 Statystyki</label>'
-    +'<label for="tx3">🗓️ Tydzień</label>'
-    +'<label for="tx4">🏅 Osiągnięcia</label>'
+    +'<label id="tb1" class="active" onclick="showTab(1)">🏆 Wyniki</label>'
+    +'<label id="tb2" onclick="showTab(2)">📊 Statystyki</label>'
+    +'<label id="tb3" onclick="showTab(3)">🗓️ Tydzień</label>'
+    +'<label id="tb4" onclick="showTab(4)">🏅 Osiągnięcia</label>'
     +'</div>'
-    +'<div class="tab-pane" id="px1">'
+    +'<div class="tab-pane active" id="px1">'
     +'<div class="teams-grid">'
     +teamSection('A',tA,'#c8392b','#fdecea',logoA,tnA)
     +teamSection('B',tB,'#1a5fa8','#e8f0fb',logoB,tnB)
@@ -573,6 +561,23 @@ function renderApp(payload){
     +'<div class="tab-pane" id="px3">'+chronicleHtml+raceHtml+'</div>'
     +'<div class="tab-pane" id="px4">'+achHtml+'</div>'
     +'</div>';
+
+  // Re-apply the previously selected tab (innerHTML replace resets it to tab 1)
+  showTab(currentTab);
+}
+
+// ── TAB SWITCHING (plain JS — replaces the CSS-radio trick, which
+//    only works when the radios and .tab-wrap are direct siblings;
+//    here .tab-wrap is injected inside #app) ─────────────────────
+let currentTab=1;
+function showTab(n){
+  currentTab=n;
+  for(let i=1;i<=4;i++){
+    const pane=document.getElementById('px'+i);
+    const btn=document.getElementById('tb'+i);
+    if(pane) pane.classList.toggle('active', i===n);
+    if(btn) btn.classList.toggle('active', i===n);
+  }
 }
 
 // ── DATA LOADING ─────────────────────────────────────────────
