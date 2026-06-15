@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drużyny — Zabawa Aktywnościowa 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0ede8;
+    --text: #1e1a17;
+    --muted: #7a7068;
+    --border: #ddd8d0;
+    --a: #c8392b;
+    --a-soft: #faeae8;
+    --a-mid: #e8553d;
+    --b: #1a5fa8;
+    --b-soft: #e8f0fb;
+    --b-mid: #2d7dd2;
+    --shadow: 0 2px 8px rgba(30,26,23,.07), 0 8px 24px rgba(30,26,23,.05);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-text-size-adjust: 100%;
+    padding-bottom: 3rem;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--text);
+    color: #fff;
+    text-align: center;
+    padding: 2.2rem 1.25rem 1.8rem;
+  }
+  header .sub {
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .5;
+    margin-bottom: .5rem;
+  }
+  header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: -.03em;
+    line-height: 1.1;
+  }
+  header p {
+    margin-top: .5rem;
+    font-size: .85rem;
+    opacity: .6;
+  }
+
+  .container { max-width: 480px; margin: 0 auto; padding: 0 .85rem; }
+
+  /* VS STRIP */
+  .vs-strip {
+    display: flex;
+    align-items: stretch;
+    margin: 1.1rem 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .vs-half {
+    flex: 1;
+    padding: .9rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .vs-half.a { background: var(--a); color: #fff; }
+  .vs-half.b { background: var(--b); color: #fff; }
+  .vs-half .label {
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .75;
+  }
+  .vs-half .name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: -.02em;
+  }
+  .vs-half .count {
+    font-size: .78rem;
+    opacity: .8;
+    margin-top: 2px;
+  }
+  .vs-mid {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 .6rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  /* TEAM CARDS */
+  .team-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+  }
+  .team-header {
+    padding: .85rem 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+  }
+  .team-header.a { background: var(--a); }
+  .team-header.b { background: var(--b); }
+  .team-letter {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .team-header-text { flex: 1; }
+  .team-header-text .th-label {
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .75;
+  }
+  .team-header-text .th-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .team-pts {
+    font-size: .75rem;
+    opacity: .85;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* MEMBER LIST */
+  .member-list { background: #fff; }
+  .member {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .65rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .member:last-child { border-bottom: none; }
+
+  .avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    letter-spacing: -.01em;
+  }
+
+  .member-info { flex: 1; min-width: 0; }
+  .member-name {
+    font-size: .9rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .member-sub {
+    font-size: .75rem;
+    color: var(--muted);
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .tier {
+    font-size: .65rem;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+  .tier-elite { background: #edf7f0; color: #2d8a56; }
+  .tier-strong { background: #edf2fb; color: #1a5fa8; }
+  .tier-mid { background: #faeeda; color: #854f0b; }
+  .tier-light { background: #f3f2f0; color: #5f5e5a; }
+  .tier-mixed { background: #f0edfe; color: #4a3fbf; }
+  .tier-unknown { background: #f3f2f0; color: #7a7068; }
+
+  .member-stat {
+    font-size: .75rem;
+    color: var(--muted);
+    text-align: right;
+    flex-shrink: 0;
+    max-width: 90px;
+    line-height: 1.4;
+  }
+
+  /* NOTES */
+  .note {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: .9rem 1.1rem;
+    margin-bottom: .85rem;
+    font-size: .83rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .note strong { color: var(--text); }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem .5rem;
+    font-size: .72rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sub">Zabawa Aktywnościowa 2026</div>
+  <h1>Podział na drużyny</h1>
+  <p>16 osób · 2 drużyny po 8</p>
+</header>
+
+<div class="container">
+
+  <div class="vs-strip">
+    <div class="vs-half a">
+      <span class="label">Drużyna</span>
+      <span class="name">A</span>
+      <span class="count">6 zawodników</span>
+    </div>
+    <div class="vs-mid">VS</div>
+    <div class="vs-half b" style="text-align:right">
+      <span class="label">Drużyna</span>
+      <span class="name">B</span>
+      <span class="count">8 zawodników</span>
+    </div>
+  </div>
+
+  <!-- DRUŻYNA A -->
+  <div class="team-card">
+    <div class="team-header a">
+      <div class="team-letter">A</div>
+      <div class="team-header-text">
+        <div class="th-label">Drużyna</div>
+        <div class="th-name">Angela &amp; Kuba</div>
+      </div>
+      <div class="team-pts">~5660 pkt<br>mies. (est.)</div>
+    </div>
+    <div class="member-list">
+
+      <div class="member">
+        <div class="avatar" style="background:#faeae8;color:#c8392b">An</div>
+        <div class="member-info">
+          <div class="member-name">Angela</div>
+          <div class="member-sub"><span class="tier tier-elite">Elite</span></div>
+        </div>
+        <div class="member-stat">170 km<br>18 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#faeae8;color:#c8392b">Ku</div>
+        <div class="member-info">
+          <div class="member-name">Kuba</div>
+          <div class="member-sub"><span class="tier tier-elite">Elite</span></div>
+        </div>
+        <div class="member-stat">173 km<br>13 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#faeeda;color:#854f0b">Mt</div>
+        <div class="member-info">
+          <div class="member-name">Marta</div>
+          <div class="member-sub"><span class="tier tier-mid">Średni</span></div>
+        </div>
+        <div class="member-stat">83 km<br>8 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#faeeda;color:#854f0b">Ka</div>
+        <div class="member-info">
+          <div class="member-name">Kasia Łukomska</div>
+          <div class="member-sub"><span class="tier tier-mid">Średni</span></div>
+        </div>
+        <div class="member-stat">53 km<br>11 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">GG</div>
+        <div class="member-info">
+          <div class="member-name">Grzegorz G</div>
+          <div class="member-sub"><span class="tier tier-light">Spacer</span> małż. z Małgorzatą</div>
+        </div>
+        <div class="member-stat">spaceruje</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">MG</div>
+        <div class="member-info">
+          <div class="member-name">Małgorzata G</div>
+          <div class="member-sub"><span class="tier tier-light">Spacer</span> małż. z Grzegorzem</div>
+        </div>
+        <div class="member-stat">spaceruje</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DRUŻYNA B -->
+  <div class="team-card">
+    <div class="team-header b">
+      <div class="team-letter">B</div>
+      <div class="team-header-text">
+        <div class="th-label">Drużyna</div>
+        <div class="th-name">Mateusz &amp; Jarek</div>
+      </div>
+      <div class="team-pts">~5865 pkt<br>mies. (est.)</div>
+    </div>
+    <div class="member-list">
+
+      <div class="member">
+        <div class="avatar" style="background:#e8f0fb;color:#1a5fa8">MW</div>
+        <div class="member-info">
+          <div class="member-name">Mateusz W</div>
+          <div class="member-sub"><span class="tier tier-elite">Elite</span></div>
+        </div>
+        <div class="member-stat">tempo 4:49<br>półmaraton</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#e8f0fb;color:#1a5fa8">Jr</div>
+        <div class="member-info">
+          <div class="member-name">Jarek</div>
+          <div class="member-sub"><span class="tier tier-elite">Elite</span> para z Wiolą</div>
+        </div>
+        <div class="member-stat">131 km<br>15 biegów</div>
+      </div>
+
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">Wi</div>
+        <div class="member-info">
+          <div class="member-name">Wiola</div>
+          <div class="member-sub"><span class="tier tier-light">Lekki</span> para z Jarkiem</div>
+        </div>
+        <div class="member-stat">48 km<br>6 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">Md</div>
+        <div class="member-info">
+          <div class="member-name">Madzia</div>
+          <div class="member-sub"><span class="tier tier-light">Lekki</span> para z Mariuszem</div>
+        </div>
+        <div class="member-stat">53 km<br>6 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">Ma</div>
+        <div class="member-info">
+          <div class="member-name">Mariusz</div>
+          <div class="member-sub"><span class="tier tier-light">Lekki</span> para z Madzią</div>
+        </div>
+        <div class="member-stat">47 km<br>5 biegów</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">WK</div>
+        <div class="member-info">
+          <div class="member-name">Wojtek K</div>
+          <div class="member-sub"><span class="tier tier-unknown">Nieznany</span></div>
+        </div>
+        <div class="member-stat">zobaczymy<br>🔍</div>
+      </div>
+
+      <div class="member">
+        <div class="avatar" style="background:#f3f2f0;color:#5f5e5a">Ju</div>
+        <div class="member-info">
+          <div class="member-name">Julek</div>
+          <div class="member-sub"><span class="tier tier-light">Minimalny</span></div>
+        </div>
+        <div class="member-stat">22 km<br>1 bieg</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Siła drużyn:</strong> A ma dwoje elitowych biegaczy (Angela + Kuba), ale słabsze zaplecze. B ma Mateusza i Jarka na czele Drużyna A liczy <strong>6 osób</strong>, Drużyna B <strong>7 osób</strong> — każdy dzień aktywności liczy się do bonusu drużynowego!<br><br>
+    <strong>Pary w tej samej drużynie:</strong> Kuba+Marta (A), Jarek+Wiola (B), Madzia+Mariusz (B), Grzegorz+Małgorzata (A).
+  </div>
+
+  <footer>Zabawa aktywnościowa 2026 · Powodzenia wszystkim! 🏃‍♂️🏊‍♀️💪</footer>
+</div>
+
+</body>
+</html>
