@@ -582,17 +582,34 @@ function showTab(n){
 
 // ── DATA LOADING ─────────────────────────────────────────────
 let sb=null;
+let _lastSeenUpdatedAt=null;   // tracks the row's updated_at we last rendered
+let _realtimeOk=false;         // becomes true once realtime subscribes successfully
 
+// Full payload fetch — only called when we actually need fresh data
 async function loadAndRender(){
   if(!sb)return;
   try{
     const {data,error}=await sb.from('tabela_data').select('payload,updated_at').eq('id',SB_ROW).single();
     if(error)throw error;
+    _lastSeenUpdatedAt=data?data.updated_at:null;
     renderApp(data?data.payload:null);
   }catch(e){
     console.error('Load error:',e);
     document.getElementById('app').innerHTML='<div class="center-msg">⚠️ Nie udało się wczytać danych. Sprawdź połączenie internetowe lub odśwież stronę.</div>';
   }
+}
+
+// Lightweight change check — downloads only updated_at (a few bytes),
+// and only pulls the full payload if something actually changed.
+async function checkForUpdates(){
+  if(!sb||document.hidden)return; // skip when tab is in background
+  try{
+    const {data,error}=await sb.from('tabela_data').select('updated_at').eq('id',SB_ROW).single();
+    if(error)throw error;
+    if(data&&data.updated_at!==_lastSeenUpdatedAt){
+      await loadAndRender();
+    }
+  }catch(e){ console.error('Update check error:',e); }
 }
 
 function manualRefresh(){
@@ -606,9 +623,13 @@ function subscribeRealtime(){
   sb.channel('live_results')
     .on('postgres_changes',{event:'UPDATE',schema:'public',table:'tabela_data',filter:'id=eq.'+SB_ROW},
       payload=>{
-        if(payload.new&&payload.new.payload) renderApp(payload.new.payload);
+        // Realtime already carries the new row — render it directly, no extra fetch
+        if(payload.new&&payload.new.payload){
+          _lastSeenUpdatedAt=payload.new.updated_at||_lastSeenUpdatedAt;
+          renderApp(payload.new.payload);
+        }
       })
-    .subscribe();
+    .subscribe((status)=>{ if(status==='SUBSCRIBED') _realtimeOk=true; });
 }
 
 // ── INIT ─────────────────────────────────────────────────────
@@ -617,10 +638,15 @@ if(!SB_URL||!SB_KEY){
     '<div class="center-msg">⚙️ Strona nieskonfigurowana.<br><br>Uzupełnij <code>SB_URL</code> i <code>SB_KEY</code> w kodzie <code>index.html</code> (te same wartości co w panelu admina).</div>';
 }else{
   sb=supabase.createClient(SB_URL,SB_KEY);
-  loadAndRender();
-  subscribeRealtime();
-  // Fallback polling — keeps the page fresh even if realtime isn't enabled
-  setInterval(loadAndRender, 60000);
+  loadAndRender();      // one full fetch on page open
+  subscribeRealtime();  // primary live-update path (cheap: only fires on admin saves)
+
+  // Lightweight safety-net check, ONLY when realtime isn't connected and the
+  // tab is visible. Downloads just updated_at; pulls full data only on change.
+  setInterval(()=>{ if(!_realtimeOk) checkForUpdates(); }, 5*60*1000);
+
+  // When a backgrounded tab becomes visible again, do one cheap check
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden) checkForUpdates(); });
 }
 </script>
 </body>
