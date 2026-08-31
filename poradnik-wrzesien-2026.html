@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Poradnik — Aktywny wrzesień 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#173a4a;
+  --sea:#0e8ab0;
+  --teal:#0b7a86;
+  --coral:#ff6b53;
+  --sun:#ffb020;
+  --grass:#2e9e6b;
+  --sand:#fff3dc;
+  --muted:#6a8593;
+  --new:#e8443b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',system-ui,sans-serif;color:var(--ink);line-height:1.6;
+  background:linear-gradient(180deg,#9fdcf3 0%,#c8ebf6 16%,#e9f6ef 38%,#fdf3dc 66%,#fce8c8 100%);
+  background-attachment:fixed;padding-bottom:3rem;
+}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+
+.hero{text-align:center;padding:2.4rem 0 1rem}
+.hero .em{font-size:2.6rem}
+.hero h1{font-family:'Baloo 2',cursive;font-size:clamp(1.9rem,7vw,2.8rem);font-weight:800;line-height:1.05;margin:.3rem 0 .1rem}
+.hero .season{font-family:'Baloo 2',cursive;font-weight:700;color:var(--sea);font-size:1.05rem}
+.hero .tag{color:var(--muted);font-size:.98rem;max-width:40ch;margin:.7rem auto 0}
+
+/* "co nowego" banner */
+.whatsnew{background:linear-gradient(120deg,#ff7a5c,#ff5236);color:#fff;border-radius:20px;padding:1.3rem 1.3rem 1.1rem;margin:1.5rem 0;box-shadow:0 8px 22px rgba(232,68,59,.28)}
+.whatsnew h2{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.35rem;margin-bottom:.2rem}
+.whatsnew p.intro{opacity:.95;font-size:.95rem;margin-bottom:.9rem}
+.nw{display:flex;gap:.75rem;align-items:flex-start;background:rgba(255,255,255,.14);border-radius:14px;padding:.75rem .85rem;margin-bottom:.6rem}
+.nw:last-child{margin-bottom:0}
+.nw .n{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.4rem;line-height:1;flex-shrink:0;width:1.8rem;text-align:center}
+.nw .t{font-weight:800;font-size:1rem}
+.nw .d{font-size:.9rem;opacity:.95;margin-top:.1rem}
+
+/* section blocks */
+.block{background:#fff;border-radius:18px;padding:1.2rem 1.2rem;margin:1.1rem 0;box-shadow:0 4px 18px rgba(11,122,134,.10)}
+.block h2{font-family:'Baloo 2',cursive;font-weight:700;font-size:1.25rem;margin-bottom:.2rem;display:flex;align-items:center;gap:.5rem}
+.block .lead{color:var(--muted);font-size:.92rem;margin-bottom:.8rem}
+.block p{margin-bottom:.6rem}
+.block p:last-child{margin-bottom:0}
+
+.step{display:flex;gap:.8rem;align-items:flex-start;margin-bottom:.7rem}
+.step .dot{width:1.7rem;height:1.7rem;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-family:'Baloo 2',cursive;background:var(--sea)}
+.step .txt{font-size:.95rem;padding-top:.1rem}
+
+.tbl{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:.93rem}
+.tbl td{padding:.42rem .3rem;border-bottom:1px solid #eef3f5}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .r{text-align:right;font-weight:700}
+.pos{color:var(--grass)}.neg{color:var(--new)}
+
+.note{border-radius:12px;padding:.75rem .9rem;margin:.7rem 0;font-size:.93rem}
+.note-good{background:#e6f6ed;border-left:4px solid var(--grass)}
+.note-warn{background:#fff2e2;border-left:4px solid var(--sun)}
+.note-stop{background:#ffeae7;border-left:4px solid var(--new)}
+.note-info{background:#e7f4f8;border-left:4px solid var(--sea)}
+
+.example{background:#f3f9fb;border-radius:12px;padding:.75rem .9rem;margin:.7rem 0;font-size:.93rem}
+.example .lbl{font-weight:800;color:var(--sea);font-size:.75rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem}
+.hl{background:var(--sun);color:#5a3d00;padding:0 .3rem;border-radius:4px;font-weight:700}
+.ans{color:var(--coral);font-weight:800}
+
+.faq{background:rgba(255,255,255,.7);border-radius:14px;padding:.3rem 1rem;margin:.6rem 0}
+.faq details{border-bottom:1px solid #e6eef1}
+.faq details:last-child{border-bottom:none}
+.faq summary{cursor:pointer;list-style:none;padding:.8rem 0;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--sea);font-weight:800;font-size:1.2rem}
+.faq details[open] summary::after{content:"−"}
+.faq .a{padding:0 0 .9rem;font-size:.93rem;color:#3a5560}
+
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem 1rem;line-height:1.7}
+footer .big{font-family:'Baloo 2',cursive;font-weight:700;color:var(--ink);font-size:1rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="em">🏖️</div>
+    <h1>Poradnik</h1>
+    <div class="season">Aktywny wrzesień 2026</div>
+    <p class="tag">Wracamy po przerwie z trzema nowościami. Tu wyjaśniamy je prosto — i przypominamy, jak grać.</p>
+  </header>
+
+  <!-- CO NOWEGO -->
+  <div class="whatsnew">
+    <h2>Co się zmieniło we wrześniu</h2>
+    <p class="intro">Jeśli grałeś latem, przeczytaj tylko te trzy rzeczy — reszta zasad jest bez zmian.</p>
+    <div class="nw">
+      <div class="n">1</div>
+      <div><div class="t">Punkty ujemne za brak ruchu</div>
+      <div class="d">Poniżej 5 aktywnych dni w tygodniu tracisz 20 pkt za każdy brakujący dzień. Ale wynik nigdy nie spada poniżej zera.</div></div>
+    </div>
+    <div class="nw">
+      <div class="n">2</div>
+      <div><div class="t">Wylot z drużyny (DSQ)</div>
+      <div class="d">Mniej niż 3 aktywne dni w tygodniu = wypadasz z drużyny do końca miesiąca. Grasz dalej indywidualnie, ale nie liczysz się do drużyny.</div></div>
+    </div>
+    <div class="nw">
+      <div class="n">3</div>
+      <div><div class="t">Jedna wspólna tabela</div>
+      <div class="d">Wszyscy w jednym rankingu, każdy w kolorze swojej drużyny. Kto zdobywa punkty — pnie się w górę.</div></div>
+    </div>
+  </div>
+
+  <!-- NOWOŚĆ 1 -->
+  <div class="block">
+    <h2>➖ Punkty ujemne</h2>
+    <div class="lead">Cel: ruszaj się 5 dni w tygodniu. Dwa dni wolne są za darmo.</div>
+    <p>Za każdy aktywny dzień poniżej pięciu tracisz <b>20 pkt</b>. Tyle samo, ile daje bonus za sam aktywny dzień — więc opuszczony dzień kosztuje dokładnie tyle, ile byś zdobył.</p>
+    <table class="tbl">
+      <tr><td>5, 6 lub 7 dni</td><td class="r pos">bez kary 😌</td></tr>
+      <tr><td>4 dni</td><td class="r neg">−20</td></tr>
+      <tr><td>3 dni</td><td class="r neg">−40</td></tr>
+      <tr><td>2 dni</td><td class="r neg">−60</td></tr>
+      <tr><td>1 dzień</td><td class="r neg">−80</td></tr>
+      <tr><td>0 dni</td><td class="r neg">−100</td></tr>
+    </table>
+    <div class="note note-info">🛟 <b>Podłoga na zero.</b> Kara nie wpędzi Cię na minus — najgorsze, co się stanie, to wynik 0 za tydzień.</div>
+    <div class="example">
+      <div class="lbl">Przykład</div>
+      Masz 3 aktywne dni i uzbierałeś 150 pkt. Brakuje 2 dni do piątki → kara −40.<br>
+      Wynik tygodnia: 150 − 40 = <span class="ans">110 pkt</span>
+    </div>
+  </div>
+
+  <!-- NOWOŚĆ 2 -->
+  <div class="block">
+    <h2>🚪 Wylot z drużyny (DSQ)</h2>
+    <div class="lead">Chodzi o to, żeby nikt się nie obijał kosztem drużyny.</div>
+    <p>Jeśli w tygodniu masz <b>mniej niż 3 aktywne dni</b>, wypadasz z drużyny do końca miesiąca. Na tabeli dostajesz oznaczenie <b>DSQ</b>.</p>
+    <div class="step"><div class="dot">✓</div><div class="txt"><b>Grasz dalej indywidualnie</b> — możesz normalnie zdobywać punkty w rankingu.</div></div>
+    <div class="step"><div class="dot" style="background:var(--muted)">✕</div><div class="txt"><b>Nie liczysz się do drużyny</b> — Twoje punkty nie wchodzą do sumy ani bonusu drużyny.</div></div>
+    <div class="step"><div class="dot" style="background:var(--grass)">＋</div><div class="txt"><b>Twoje punkty dodatnie zostają</b> w tabeli indywidualnej.</div></div>
+    <div class="step"><div class="dot" style="background:var(--new)">−</div><div class="txt"><b>Twoje punkty ujemne się kasują</b> — kara znika.</div></div>
+    <div class="note note-warn">O wylocie decyduje organizator przy zamykaniu tygodnia. Choroba albo wyjazd? Napisz — to nie jest bezduszny automat.</div>
+  </div>
+
+  <!-- NOWOŚĆ 3 -->
+  <div class="block">
+    <h2>🏆 Jedna wspólna tabela</h2>
+    <div class="lead">Koniec z dwiema osobnymi listami.</div>
+    <p>Główna tabela pokazuje teraz <b>wszystkich razem</b>, posortowanych od najlepszego. Każdy ma kolor swojej drużyny:</p>
+    <div class="step"><div class="dot" style="background:#c8392b">1</div><div class="txt"><b>Grupa 1</b> — czerwony</div></div>
+    <div class="step"><div class="dot" style="background:#1a5fa8">2</div><div class="txt"><b>Grupa 2</b> — niebieski</div></div>
+    <p>Twój wynik w tej tabeli zawiera już <b>udział w bonusie drużynowym</b> (dzielony równo między drużynę). Kto zdobywa punkty — awansuje; kto stoi — spada.</p>
+    <div class="note note-info">👥 Rywalizacja drużyna kontra drużyna jest dalej — na górnym pasku „Grupa 1 vs Grupa 2" i na osobnej zakładce „Drużyny".</div>
+  </div>
+
+  <!-- PRZYPOMNIENIE ZASAD -->
+  <div class="block">
+    <h2>🔁 Przypomnienie: jak zdobywasz punkty</h2>
+    <div class="lead">To zostało bez zmian od lata.</div>
+    <p><b>+20 pkt</b> za każdy aktywny dzień (raz dziennie). Do tego punkty za aktywność, każda z dziennym limitem <b>75 pkt</b>:</p>
+    <table class="tbl">
+      <tr><td>🏃 Bieg</td><td class="r">5 pkt/km</td><td class="r" style="color:var(--muted)">limit 15 km</td></tr>
+      <tr><td>🚶 Spacer</td><td class="r">×0,5</td><td class="r" style="color:var(--muted)">limit 30 km</td></tr>
+      <tr><td>🚴 Rower</td><td class="r">×0,3</td><td class="r" style="color:var(--muted)">limit 50 km</td></tr>
+      <tr><td>🏊 Pływanie</td><td class="r">×5,0</td><td class="r" style="color:var(--muted)">limit 3 km</td></tr>
+      <tr><td>🧘 Trening na czas</td><td class="r">30 pkt</td><td class="r" style="color:var(--muted)">min 30 min</td></tr>
+    </table>
+    <p>Aktywności różnych typów <b>się sumują</b>. Liczymy <b>5 najlepszych dni</b> w tygodniu. Do tego bonusy: za regularność (3/4/5 dni → +20/+40/+60) i za bieganie (2/3/4 dni → +10/+25/+50).</p>
+    <div class="note note-stop">⚠️ Spacer od 3 km. Rower elektryczny się nie liczy. Trening na czas: 1 dziennie.</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="block">
+    <h2>❓ Częste pytania</h2>
+    <div class="faq">
+      <details>
+        <summary>Wezmę 2 dni wolne — dostanę punkty ujemne?</summary>
+        <div class="a">Nie. Cel to 5 dni, a tydzień ma 7 — dwa dni wolne są zawsze darmowe. Kara jest dopiero za mniej niż 5 aktywnych dni.</div>
+      </details>
+      <details>
+        <summary>Czy mogę wpaść na ujemny wynik?</summary>
+        <div class="a">Nie. Jest podłoga na zero — najgorszy możliwy wynik za tydzień to 0 punktów.</div>
+      </details>
+      <details>
+        <summary>Dostałem DSQ. To koniec dla mnie?</summary>
+        <div class="a">Nie! Grasz dalej indywidualnie i normalnie zdobywasz punkty. Tracisz tylko miejsce w drużynie do końca miesiąca, a Twoje punkty ujemne się kasują.</div>
+      </details>
+      <details>
+        <summary>Byłem chory cały tydzień. Wylecę?</summary>
+        <div class="a">O wylocie decyduje organizator przy zamykaniu tygodnia, więc napisz o sytuacji. To nie jest automat — losowe przypadki można uwzględnić.</div>
+      </details>
+      <details>
+        <summary>Gdzie zobaczę, która drużyna wygrywa?</summary>
+        <div class="a">Na górnym pasku tabeli („Grupa 1 vs Grupa 2") oraz na osobnej zakładce „Drużyny".</div>
+      </details>
+    </div>
+  </div>
+
+  <footer>
+    <div class="big">Ruszaj się, baw się dobrze i nie daj się zajechać 🌞</div>
+    Aktywny wrzesień 2026 · poradnik<br>
+    Pełne zasady znajdziesz w regulaminie.
+  </footer>
+
+</div>
+</body>
+</html>

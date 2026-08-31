@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Regulamin — Aktywny wrzesień 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#173a4a;
+  --sky:#8fd4f0;
+  --sea:#0e8ab0;
+  --teal:#0b7a86;
+  --coral:#ff6b53;
+  --sun:#ffb020;
+  --grass:#2e9e6b;
+  --sand:#fff3dc;
+  --paper:#ffffff;
+  --muted:#6a8593;
+  --new:#e8443b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',system-ui,sans-serif;color:var(--ink);line-height:1.6;
+  background:linear-gradient(180deg,#9fdcf3 0%,#c8ebf6 18%,#e9f6ef 40%,#fdf3dc 68%,#fce8c8 100%);
+  background-attachment:fixed;padding-bottom:3rem;
+}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+
+/* hero */
+.hero{text-align:center;padding:2.4rem 0 1.4rem;position:relative}
+.hero .sun{font-size:2.6rem;line-height:1}
+.hero h1{font-family:'Baloo 2',cursive;font-size:clamp(1.9rem,7vw,2.8rem);font-weight:800;line-height:1.05;margin:.3rem 0 .1rem;color:var(--ink)}
+.hero .season{font-family:'Baloo 2',cursive;font-weight:700;color:var(--sea);font-size:1.05rem}
+.hero .tag{color:var(--muted);font-size:.95rem;max-width:38ch;margin:.7rem auto 0}
+
+/* motto */
+.motto{background:var(--sand);border-radius:16px;padding:1rem 1.2rem;margin:1.4rem 0;text-align:center;
+  font-style:italic;font-size:1.02rem;color:#7a5a1e;box-shadow:0 3px 0 rgba(255,176,32,.25)}
+
+/* section */
+.rule{background:var(--paper);border-radius:18px;margin:1rem 0;overflow:hidden;box-shadow:0 4px 18px rgba(11,122,134,.10)}
+.rule-head{display:flex;align-items:center;gap:.7rem;padding:.9rem 1.1rem;color:#fff}
+.rule-head .no{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.3rem;background:rgba(255,255,255,.25);width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rule-head h2{font-family:'Baloo 2',cursive;font-weight:700;font-size:1.15rem;flex:1}
+.rule-body{padding:1rem 1.1rem}
+.rule-body p{margin-bottom:.6rem}
+.rule-body p:last-child{margin-bottom:0}
+.rule-body ul{list-style:none;margin:.3rem 0}
+.rule-body li{position:relative;padding-left:1.5rem;margin-bottom:.45rem}
+.rule-body li::before{content:"›";position:absolute;left:.3rem;top:-1px;color:var(--sea);font-weight:800;font-size:1.1rem}
+b,strong{font-weight:700}
+
+/* colour variants for headers */
+.c-coral .rule-head{background:linear-gradient(120deg,#ff8560,#ff5a3c)}
+.c-teal  .rule-head{background:linear-gradient(120deg,#17a2b0,#0b7a86)}
+.c-sun   .rule-head{background:linear-gradient(120deg,#ffc44d,#ff9e18);color:#5a3d00}
+.c-sun   .rule-head .no{background:rgba(90,61,0,.18)}
+.c-grass .rule-head{background:linear-gradient(120deg,#43b97f,#2e9e6b)}
+.c-new   .rule-head{background:linear-gradient(120deg,#ff5b52,#d6362d)}
+
+/* NEW badge */
+.newflag{display:inline-flex;align-items:center;gap:.25rem;background:#fff;color:var(--new);
+  font-weight:800;font-size:.68rem;padding:.12rem .5rem;border-radius:20px;letter-spacing:.02em;text-transform:uppercase}
+
+/* points chip */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0}
+.chip{border-radius:12px;padding:.5rem .7rem;flex:1 1 120px;text-align:center;background:#f3f9fb}
+.chip .ico{font-size:1.3rem;line-height:1}
+.chip .name{font-weight:700;font-size:.85rem;margin-top:.15rem}
+.chip .val{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.05rem;color:var(--sea)}
+.chip .sub{font-size:.72rem;color:var(--muted)}
+
+/* mini table */
+.tbl{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.92rem}
+.tbl td{padding:.4rem .3rem;border-bottom:1px solid #eef3f5}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .r{text-align:right;font-weight:700}
+.pos{color:var(--grass)}
+.neg{color:var(--new)}
+
+/* callout */
+.note{border-radius:12px;padding:.7rem .9rem;margin:.7rem 0;font-size:.92rem}
+.note-good{background:#e6f6ed;border-left:4px solid var(--grass)}
+.note-warn{background:#fff2e2;border-left:4px solid var(--sun)}
+.note-stop{background:#ffeae7;border-left:4px solid var(--new)}
+.note-info{background:#e7f4f8;border-left:4px solid var(--sea)}
+
+.example{background:#f3f9fb;border-radius:12px;padding:.7rem .9rem;margin:.7rem 0;font-size:.92rem}
+.example .lbl{font-weight:800;color:var(--sea);font-size:.75rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem}
+.hl{background:var(--sun);color:#5a3d00;padding:0 .3rem;border-radius:4px;font-weight:700}
+
+/* quick nav */
+.toc{background:rgba(255,255,255,.75);border-radius:16px;padding:1rem 1.1rem;margin:1.2rem 0}
+.toc h3{font-family:'Baloo 2',cursive;font-size:1rem;margin-bottom:.5rem}
+.toc ol{list-style:none;counter-reset:t;display:grid;grid-template-columns:1fr 1fr;gap:.35rem .8rem}
+.toc a{color:var(--ink);text-decoration:none;font-size:.9rem;display:flex;gap:.4rem;align-items:baseline}
+.toc a:hover{color:var(--sea)}
+.toc a .n{color:var(--sea);font-weight:800;min-width:1.1rem}
+@media(max-width:460px){.toc ol{grid-template-columns:1fr}}
+
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem 1rem;line-height:1.7}
+footer .big{font-family:'Baloo 2',cursive;font-weight:700;color:var(--ink);font-size:1rem}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="sun">☀️</div>
+    <h1>Regulamin</h1>
+    <div class="season">Aktywny wrzesień 2026</div>
+    <p class="tag">Zasady zabawy w prostych punktach. Trzy rzeczy są nowe — szukaj plakietki <span class="newflag">Nowość</span></p>
+  </header>
+
+  <div class="motto">„Rób to, co lubisz i możesz — a nie to, co daje najwięcej punktów. To ma być zabawa, nie obowiązek."</div>
+
+  <nav class="toc">
+    <h3>Spis zasad</h3>
+    <ol>
+      <li><a href="#r1"><span class="n">1</span> Jak zdobywasz punkty</a></li>
+      <li><a href="#r2"><span class="n">2</span> Limit 75 na aktywność</a></li>
+      <li><a href="#r3"><span class="n">3</span> Kilometry: rower, spacer, basen</a></li>
+      <li><a href="#r4"><span class="n">4</span> Trening na czas</a></li>
+      <li><a href="#r5"><span class="n">5</span> Liczymy 5 dni</a></li>
+      <li><a href="#r6"><span class="n">6</span> Bonusy tygodniowe</a></li>
+      <li><a href="#r7"><span class="n">7</span> Bonus drużynowy</a></li>
+      <li><a href="#r8"><span class="n">8</span> Punkty ujemne</a></li>
+      <li><a href="#r9"><span class="n">9</span> Wylot z drużyny (DSQ)</a></li>
+      <li><a href="#r10"><span class="n">10</span> Wspólna tabela</a></li>
+      <li><a href="#r11"><span class="n">11</span> Uczciwość</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section class="rule c-coral" id="r1">
+    <div class="rule-head"><span class="no">1</span><h2>Jak zdobywasz punkty</h2></div>
+    <div class="rule-body">
+      <p>Za każdy dzień, w którym coś zrobisz, dostajesz <b>bonus dzienny +20 pkt</b> — raz dziennie, niezależnie od tego, ile aktywności wykonasz.</p>
+      <p>Do tego dochodzą punkty za samą aktywność:</p>
+      <ul>
+        <li><b>Bieg:</b> 5 pkt za każdy kilometr (minimum 3 km)</li>
+        <li><b>Rower, spacer, pływanie:</b> kilometry przeliczane mnożnikiem (patrz punkt 3)</li>
+        <li><b>Siłownia, joga i podobne:</b> stała wartość (patrz punkt 4)</li>
+      </ul>
+      <p>Robisz kilka różnych aktywności jednego dnia? <b>Punkty się sumują.</b> Bonus +20 dostajesz i tak tylko raz.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="rule c-teal" id="r2">
+    <div class="rule-head"><span class="no">2</span><h2>Każda aktywność ma dzienny limit 75 pkt</h2></div>
+    <div class="rule-body">
+      <p>Za jedną aktywność możesz zdobyć maksymalnie <b>75 punktów dziennie</b>. Bonus +20 jest <b>poza</b> tym limitem.</p>
+      <div class="chips">
+        <div class="chip"><div class="ico">🏃</div><div class="name">Bieg</div><div class="val">75 pkt</div><div class="sub">= 15 km</div></div>
+        <div class="chip"><div class="ico">🚴</div><div class="name">Rower</div><div class="val">75 pkt</div><div class="sub">= 50 km</div></div>
+        <div class="chip"><div class="ico">🚶</div><div class="name">Spacer</div><div class="val">75 pkt</div><div class="sub">= 30 km</div></div>
+        <div class="chip"><div class="ico">🏊</div><div class="name">Pływanie</div><div class="val">75 pkt</div><div class="sub">= 3 km</div></div>
+      </div>
+      <p>Powyżej tych wartości robisz już dla siebie — punkty się nie zwiększają. Kilometry z kilku wyjść tego samego dnia się sumują (do limitu).</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="rule c-teal" id="r3">
+    <div class="rule-head"><span class="no">3</span><h2>Rower, spacer i pływanie — przez kilometry</h2></div>
+    <div class="rule-body">
+      <p>Te aktywności liczymy w kilometrach, przeliczanych na „kilometry biegowe" mnożnikiem, a potem punktowanych jak bieg (5 pkt za km).</p>
+      <table class="tbl">
+        <tr><td>🚶 Spacer</td><td class="r">×0,5</td><td class="r" style="color:var(--muted)">od 3 km</td></tr>
+        <tr><td>🚴 Rower</td><td class="r">×0,3</td><td class="r" style="color:var(--muted)">bez minimum</td></tr>
+        <tr><td>🏊 Pływanie</td><td class="r">×5,0</td><td class="r" style="color:var(--muted)">bez minimum</td></tr>
+      </table>
+      <div class="note note-stop">⚠️ <b>Rowery elektryczne się nie liczą.</b> Spacer punktuje się dopiero od 3 km.</div>
+      <div class="example">
+        <div class="lbl">Przykłady</div>
+        Spacer <span class="hl">6 km</span> → 20 + (6×0,5×5) = <b>35 pkt</b><br>
+        Rower <span class="hl">25 km</span> → 20 + (25×0,3×5) = <b>57,5 pkt</b><br>
+        Pływanie <span class="hl">1 km</span> → 20 + (1×5×5) = <b>45 pkt</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="rule c-grass" id="r4">
+    <div class="rule-head"><span class="no">4</span><h2>Siłownia, joga i trening na czas</h2></div>
+    <div class="rule-body">
+      <p>Aktywności, których nie mierzysz w kilometrach, to <b>stała wartość 30 pkt</b> — niezależnie od długości.</p>
+      <ul>
+        <li>Minimum <b>30 minut</b>, żeby się liczyło</li>
+        <li>Liczy się <b>1 trening na czas dziennie</b> (najdłuższy)</li>
+        <li>30 minut i 90 minut dają tyle samo — wartość jest stała</li>
+      </ul>
+      <div class="example">
+        <div class="lbl">Przykład dnia mieszanego</div>
+        Bieg 8 km + siłownia 60 min = 20 (bonus) + 40 (bieg) + 30 (siłownia) = <b>90 pkt</b>
+      </div>
+      <div class="note note-info">Dlaczego mniej niż bieg? Bo treningu na czas nie da się sprawdzić trasą GPS — jest mniej „na zewnątrz".</div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="rule c-grass" id="r5">
+    <div class="rule-head"><span class="no">5</span><h2>Liczymy 5 najlepszych dni</h2></div>
+    <div class="rule-body">
+      <p>Do wyniku w tygodniu liczy się <b>5 dni o najwyższej punktacji</b>. Ćwiczysz 6 albo 7 dni? Świetnie — ale liczymy 5 najlepszych.</p>
+      <div class="note note-good">😌 <b>Dwa dni wolne nie szkodzą</b> — ani Tobie, ani drużynie. Odpoczynek jest częścią gry.</div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="rule c-sun" id="r6">
+    <div class="rule-head"><span class="no">6</span><h2>Bonusy tygodniowe</h2></div>
+    <div class="rule-body">
+      <p><b>Bonus za regularność</b> — za liczbę aktywnych dni:</p>
+      <table class="tbl">
+        <tr><td>3 dni</td><td class="r pos">+20</td></tr>
+        <tr><td>4 dni</td><td class="r pos">+40</td></tr>
+        <tr><td>5 dni</td><td class="r pos">+60</td></tr>
+      </table>
+      <p style="margin-top:.7rem"><b>Bonus biegowy</b> — za dni, w których biegałeś:</p>
+      <table class="tbl">
+        <tr><td>2 dni</td><td class="r pos">+10</td></tr>
+        <tr><td>3 dni</td><td class="r pos">+25</td></tr>
+        <tr><td>4 dni</td><td class="r pos">+50</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="rule c-sun" id="r7">
+    <div class="rule-head"><span class="no">7</span><h2>Bonus drużynowy</h2></div>
+    <div class="rule-body">
+      <p>Raz w tygodniu drużyna dzieli się <b>pulą 600 pkt</b>. Im więcej wspólnych aktywnych dni zbierze drużyna, tym większy procent puli.</p>
+      <p><b>Komplet</b> = liczba osób × 5 dni. Dla szóstki: 30 dni.</p>
+      <table class="tbl">
+        <tr><td>80% i więcej</td><td class="r pos">600 pkt</td></tr>
+        <tr><td>ok. 70%</td><td class="r pos">450 pkt</td></tr>
+        <tr><td>ok. 60%</td><td class="r pos">300 pkt</td></tr>
+        <tr><td>ok. 45%</td><td class="r pos">150 pkt</td></tr>
+        <tr><td>poniżej 45%</td><td class="r" style="color:var(--muted)">0 pkt</td></tr>
+      </table>
+      <div class="note note-good">Twój spacer czy basen pomaga całej drużynie. A dzień wolny prawie nic nie kosztuje.</div>
+    </div>
+  </section>
+
+  <!-- 8 NEW -->
+  <section class="rule c-new" id="r8">
+    <div class="rule-head"><span class="no">8</span><h2>Punkty ujemne</h2><span class="newflag">Nowość</span></div>
+    <div class="rule-body">
+      <p>Zakładamy, że w tygodniu ćwiczysz <b>5 dni</b> (dwa wolne są zawsze darmowe). Za każdy brakujący aktywny dzień <b>poniżej 5</b> odejmujemy <b>20 pkt</b>.</p>
+      <table class="tbl">
+        <tr><td>5, 6 lub 7 dni</td><td class="r pos">0 — bez kary</td></tr>
+        <tr><td>4 dni</td><td class="r neg">−20</td></tr>
+        <tr><td>3 dni</td><td class="r neg">−40</td></tr>
+        <tr><td>2 dni</td><td class="r neg">−60</td></tr>
+        <tr><td>1 dzień</td><td class="r neg">−80</td></tr>
+        <tr><td>0 dni</td><td class="r neg">−100</td></tr>
+      </table>
+      <div class="note note-info">🛟 <b>Podłoga na zero.</b> Kara może zjeść punkty tygodnia, ale wynik tygodniowy <b>nigdy nie spadnie poniżej 0</b>. Nie zrobisz sobie debetu.</div>
+      <div class="note note-good">Dlaczego −20? Bo tyle daje bonus za sam aktywny dzień. Opuszczony dzień kosztuje więc dokładnie tyle, ile byś zyskał, gdybyś się ruszył.</div>
+    </div>
+  </section>
+
+  <!-- 9 NEW -->
+  <section class="rule c-new" id="r9">
+    <div class="rule-head"><span class="no">9</span><h2>Wylot z drużyny — DSQ</h2><span class="newflag">Nowość</span></div>
+    <div class="rule-body">
+      <p>Jeśli w tygodniu masz <b>mniej niż 3 aktywne dni</b> (czyli 2, 1 albo 0), wylatujesz z drużyny <b>do końca miesiąca</b>. Oznaczenie: <b>DSQ</b>.</p>
+      <p>Co to znaczy:</p>
+      <ul>
+        <li><b>Zostajesz w tabeli indywidualnej</b> i grasz dalej — możesz zdobywać punkty</li>
+        <li><b>Nie liczysz się już do drużyny</b> (ani do jej sumy, ani do bonusu)</li>
+        <li>Twoje <b>punkty ujemne się kasują</b></li>
+        <li>Twoje <b>punkty dodatnie zostają</b> w tabeli indywidualnej</li>
+      </ul>
+      <div class="note note-warn">Decyzję o DSQ podejmuje organizator przy zamykaniu tygodnia — jeśli słaby tydzień wynikał z choroby czy wyjazdu, można to uwzględnić.</div>
+    </div>
+  </section>
+
+  <!-- 10 NEW -->
+  <section class="rule c-coral" id="r10">
+    <div class="rule-head"><span class="no">10</span><h2>Wspólna tabela wyników</h2><span class="newflag">Nowość</span></div>
+    <div class="rule-body">
+      <p>Tabela wyników pokazuje teraz <b>wszystkich uczestników razem</b> w jednym rankingu — nie dwie osobne drużyny.</p>
+      <ul>
+        <li>Każdy ma <b>kolor swojej drużyny</b> (Grupa 1 czerwony, Grupa 2 niebieski)</li>
+        <li>Im więcej punktów, tym <b>wyżej w tabeli</b> — miejsca zmieniają się na bieżąco</li>
+        <li>Twój wynik zawiera <b>udział w bonusie drużynowym</b> (dzielony równo w drużynie)</li>
+      </ul>
+      <p>Rywalizacja drużyna kontra drużyna jest dalej — na osobnej zakładce „Drużyny" oraz na górnym pasku.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="rule c-teal" id="r11">
+    <div class="rule-head"><span class="no">11</span><h2>Uczciwość</h2></div>
+    <div class="rule-body">
+      <ul>
+        <li>Apka sportowa + zegarek/opaska. Nie masz zegarka? Telefon + GPS + apka też OK</li>
+        <li>Wrzucasz zrzut na czat — z trasą lub czasem</li>
+        <li>Aktywność liczy się <b>w dniu, w którym ją zrobiłeś</b></li>
+        <li>Wrzucasz <b>przed końcem tygodnia</b>. Po zamknięciu zaległości nie dodajemy</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="big">Forma na lata, nie na lato 🌴</div>
+    Aktywny wrzesień 2026 · regulamin<br>
+    Masz pytanie o zasadę? Pisz na grupę.
+  </footer>
+
+</div>
+</body>
+</html>
