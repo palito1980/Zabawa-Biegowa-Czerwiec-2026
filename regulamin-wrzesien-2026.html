@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
+
 :root{
   --ink:#173a4a;
   --sky:#8fd4f0;
@@ -106,6 +107,45 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem 1
 footer .big{font-family:'Baloo 2',cursive;font-weight:700;color:var(--ink);font-size:1rem}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* ── ZAKŁADKI ── */
+.tabs{position:sticky;top:0;z-index:50;display:flex;gap:.4rem;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);padding:.55rem;border-radius:0 0 16px 16px;margin:0 -18px 1rem;box-shadow:0 4px 14px rgba(11,122,134,.12)}
+.tabs button{flex:1;border:none;background:transparent;font-family:'Baloo 2',cursive;font-weight:700;font-size:.9rem;color:var(--muted);padding:.6rem .3rem;border-radius:11px;cursor:pointer;transition:.15s;line-height:1.15}
+.tabs button.on{background:linear-gradient(120deg,#17a2b0,#0b7a86);color:#fff;box-shadow:0 3px 10px rgba(11,122,134,.3)}
+.pane{display:none}
+.pane.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ── WERSJA TEKSTOWA (bez kolorów) ── */
+.plain{background:#fff;border:1px solid #d9e2e6;border-radius:8px;padding:1.4rem 1.3rem;color:#1a1a1a;font-family:Georgia,'Times New Roman',serif;line-height:1.65}
+.plain h2{font-family:Georgia,serif;font-size:1.15rem;font-weight:700;margin:1.4rem 0 .5rem;padding-bottom:.25rem;border-bottom:1px solid #ccc;color:#000}
+.plain h2:first-child{margin-top:0}
+.plain h3{font-family:Georgia,serif;font-size:1rem;font-weight:700;margin:.9rem 0 .3rem}
+.plain p{margin:.4rem 0}
+.plain ol{margin:.3rem 0 .3rem 1.4rem}
+.plain ol li{margin:.3rem 0}
+.plain ul{margin:.3rem 0 .3rem 1.4rem;list-style:disc}
+.plain ul li{margin:.25rem 0}
+.plain .lead{color:#444;font-style:italic;margin-bottom:1rem}
+.plain table{border-collapse:collapse;margin:.5rem 0;width:auto}
+.plain td,.plain th{border:1px solid #bbb;padding:.3rem .7rem;text-align:left;font-family:Georgia,serif}
+.plain .print-tip{font-size:.85rem;color:#666;margin-top:1.5rem;padding-top:.8rem;border-top:1px solid #ddd}
+
+/* ── FORMULARZ KONTAKTOWY ── */
+.contact{background:#fff;border-radius:18px;padding:1.4rem 1.3rem;box-shadow:0 4px 18px rgba(11,122,134,.10)}
+.contact h2{font-family:'Baloo 2',cursive;font-weight:700;font-size:1.3rem;margin-bottom:.3rem}
+.contact .lead{color:var(--muted);font-size:.93rem;margin-bottom:1rem}
+.field{margin-bottom:.9rem}
+.field label{display:block;font-weight:700;font-size:.9rem;margin-bottom:.3rem;color:var(--ink)}
+.field input,.field select,.field textarea{width:100%;border:2px solid #dce7eb;border-radius:11px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-size:1rem;color:var(--ink);background:#f8fbfc;transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--sea);background:#fff}
+.field textarea{resize:vertical;min-height:120px}
+.send-btn{width:100%;border:none;background:linear-gradient(120deg,#ff8560,#ff5a3c);color:#fff;font-family:'Baloo 2',cursive;font-weight:800;font-size:1.1rem;padding:.85rem;border-radius:14px;cursor:pointer;box-shadow:0 5px 16px rgba(255,90,60,.35);transition:.15s}
+.send-btn:active{transform:translateY(1px)}
+.contact .note-info{margin-top:1rem}
+.contact a.mail{color:var(--sea);font-weight:700;text-decoration:none}
+
 </style>
 </head>
 <body>
@@ -115,29 +155,18 @@ footer .big{font-family:'Baloo 2',cursive;font-weight:700;color:var(--ink);font-
     <div class="sun">☀️</div>
     <h1>Regulamin</h1>
     <div class="season">Aktywny wrzesień 2026</div>
-    <p class="tag">Zasady zabawy w prostych punktach. Trzy rzeczy są nowe — szukaj plakietki <span class="newflag">Nowość</span></p>
   </header>
 
-  <div class="motto">„Rób to, co lubisz i możesz — a nie to, co daje najwięcej punktów. To ma być zabawa, nie obowiązek."</div>
+  <div class="tabs">
+    <button id="tabBtn1" class="on" onclick="showTab(1)">🎨 Kolorowy</button>
+    <button id="tabBtn2" onclick="showTab(2)">📄 Tekstowy</button>
+    <button id="tabBtn3" onclick="showTab(3)">✉️ Kontakt</button>
+  </div>
 
-  <nav class="toc">
-    <h3>Spis zasad</h3>
-    <ol>
-      <li><a href="#r1"><span class="n">1</span> Jak zdobywasz punkty</a></li>
-      <li><a href="#r2"><span class="n">2</span> Limit 75 na aktywność</a></li>
-      <li><a href="#r3"><span class="n">3</span> Kilometry: rower, spacer, basen</a></li>
-      <li><a href="#r4"><span class="n">4</span> Trening na czas</a></li>
-      <li><a href="#r5"><span class="n">5</span> Liczymy 5 dni</a></li>
-      <li><a href="#r6"><span class="n">6</span> Bonusy tygodniowe</a></li>
-      <li><a href="#r7"><span class="n">7</span> Bonus drużynowy</a></li>
-      <li><a href="#r8"><span class="n">8</span> Punkty ujemne</a></li>
-      <li><a href="#r9"><span class="n">9</span> Wylot z drużyny (DSQ)</a></li>
-      <li><a href="#r10"><span class="n">10</span> Wspólna tabela</a></li>
-      <li><a href="#r11"><span class="n">11</span> Uczciwość</a></li>
-    </ol>
-  </nav>
-
-  <!-- 1 -->
+  <!-- ZAKŁADKA 1: KOLOROWA -->
+  <div class="pane on" id="pane1">
+    <div class="motto">„Rób to, co lubisz i możesz — a nie to, co daje najwięcej punktów. To ma być zabawa, nie obowiązek."</div>
+<!-- 1 -->
   <section class="rule c-coral" id="r1">
     <div class="rule-head"><span class="no">1</span><h2>Jak zdobywasz punkty</h2></div>
     <div class="rule-body">
@@ -177,7 +206,7 @@ footer .big{font-family:'Baloo 2',cursive;font-weight:700;color:var(--ink);font-
         <tr><td>🚴 Rower</td><td class="r">×0,3</td><td class="r" style="color:var(--muted)">bez minimum</td></tr>
         <tr><td>🏊 Pływanie</td><td class="r">×5,0</td><td class="r" style="color:var(--muted)">bez minimum</td></tr>
       </table>
-      <div class="note note-stop">⚠️ <b>Rowery elektryczne się nie liczą.</b> Spacer punktuje się dopiero od 3 km.</div>
+      <div class="note note-stop">⚠️ <b>Rowery elektryczne się nie liczą.</b> Dla dowodu do przejażdżki dołącz zdjęcie roweru zrobione <b>w trakcie</b> wycieczki (szczegóły w punkcie 11). Spacer punktuje się dopiero od 3 km.</div>
       <div class="example">
         <div class="lbl">Przykłady</div>
         Spacer <span class="hl">6 km</span> → 20 + (6×0,5×5) = <b>35 pkt</b><br>
@@ -308,15 +337,204 @@ footer .big{font-family:'Baloo 2',cursive;font-weight:700;color:var(--ink);font-
         <li>Aktywność liczy się <b>w dniu, w którym ją zrobiłeś</b></li>
         <li>Wrzucasz <b>przed końcem tygodnia</b>. Po zamknięciu zaległości nie dodajemy</li>
       </ul>
+      <div class="note note-stop">🏃 <b>Bieg na bieżni.</b> Jeśli biegniesz na bieżni (nie na świeżym powietrzu), zrzut musi <b>wyraźnie pokazywać przebiegnięty dystans z wyświetlacza maszyny</b>, na której biegłeś. Bez widocznego dystansu z bieżni bieg nie zostanie zaliczony.</div>
+      <div class="note note-stop">🚴 <b>Rower — zdjęcie w trakcie.</b> Do przejażdżki dołącz <b>zdjęcie roweru zrobione w trakcie wycieczki</b> (nie na starcie ani na mecie). Cel: dowód, że nie jest to rower elektryczny. Bez takiego zdjęcia przejażdżka nie zostanie zaliczona.</div>
+      <div class="note note-warn">💼 <b>Aktywność w pracy.</b> Liczymy <b>świadomy sport w czasie wolnym</b>, nie ruch będący częścią obowiązków służbowych. Spacer w przerwie (np. obiadowej) — tak. Chodzenie podczas pracy — nie, nawet jeśli uzbiera się sporo kilometrów.</div>
     </div>
   </section>
 
+  <!-- 12 -->
+  <section class="rule c-sun" id="r12">
+    <div class="rule-head"><span class="no">12</span><h2>Limit wkładu do drużyny</h2></div>
+    <div class="rule-body">
+      <p>Żeby jedna osoba nie „niosła" całej drużyny, wkład każdego zawodnika do wyniku drużyny jest ograniczony.</p>
+      <ul>
+        <li>Twój wkład do sumy drużyny to maksymalnie <b>200% ÷ liczba osób w drużynie</b></li>
+        <li>Dla drużyny 6-osobowej: około <b>33%</b> sumy drużyny</li>
+        <li>Punkty ponad limit dalej masz w tabeli indywidualnej — po prostu nie liczą się drużynie w nadmiarze</li>
+      </ul>
+      <div class="note note-info">To dotyczy tylko sumy drużynowej. Twój wynik indywidualny w tabeli zostaje pełny.</div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="rule c-teal" id="r13">
+    <div class="rule-head"><span class="no">13</span><h2>Co to jest „aktywny dzień" i remisy</h2></div>
+    <div class="rule-body">
+      <p><b>Aktywny dzień</b> = dzień, w którym zaliczysz przynajmniej jedno: bieg min. 3 km, spacer min. 3 km, dowolny dystans na rowerze lub pływaniu, albo trening na czas min. 30 min.</p>
+      <p>Liczba aktywnych dni decyduje o bonusie za regularność (punkt 6), punktach ujemnych (punkt 8) i wylocie DSQ (punkt 9).</p>
+      <div class="note note-info">🤝 <b>Remis w tabeli.</b> Gdy dwie osoby mają tyle samo punktów, wyżej jest ta z większą liczbą aktywnych dni. Dalej remis? Zajmują to samo miejsce.</div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ZAKŁADKA 2: TEKSTOWA -->
+  <div class="pane" id="pane2">
+
+  <div class="plain">
+    <p class="lead">Regulamin zabawy „Aktywny wrzesień 2026". Wersja tekstowa do druku i odczytu. Zasady oznaczone jako NOWOŚĆ obowiązują od edycji wrześniowej.</p>
+
+    <h2>1. Jak zdobywasz punkty</h2>
+    <ul>
+      <li>Za każdy dzień z aktywnością: bonus dzienny +20 punktów (raz dziennie, niezależnie od liczby aktywności).</li>
+      <li>Bieg: 5 punktów za każdy kilometr, minimum 3 km.</li>
+      <li>Rower, spacer, pływanie: kilometry przeliczane mnożnikiem (patrz punkt 3).</li>
+      <li>Siłownia, joga i podobne: stała wartość (patrz punkt 4).</li>
+      <li>Kilka aktywności jednego dnia sumuje się. Bonus +20 przysługuje tylko raz dziennie.</li>
+    </ul>
+
+    <h2>2. Dzienny limit 75 punktów na aktywność</h2>
+    <p>Za jedną aktywność można zdobyć maksymalnie 75 punktów dziennie. Bonus +20 jest poza tym limitem.</p>
+    <table>
+      <tr><th>Aktywność</th><th>Limit 75 pkt</th></tr>
+      <tr><td>Bieg</td><td>15 km</td></tr>
+      <tr><td>Rower</td><td>50 km</td></tr>
+      <tr><td>Spacer</td><td>30 km</td></tr>
+      <tr><td>Pływanie</td><td>3 km</td></tr>
+    </table>
+    <p>Kilometry z kilku wyjść tego samego dnia sumują się do limitu. Można wpisać dowolną liczbę biegów dziennie.</p>
+
+    <h2>3. Rower, spacer i pływanie — przez kilometry</h2>
+    <table>
+      <tr><th>Aktywność</th><th>Mnożnik</th><th>Minimum</th></tr>
+      <tr><td>Spacer</td><td>x0,5</td><td>3 km</td></tr>
+      <tr><td>Rower</td><td>x0,3</td><td>bez minimum</td></tr>
+      <tr><td>Pływanie</td><td>x5,0</td><td>bez minimum</td></tr>
+    </table>
+    <p>Kilometry przeliczane są na „kilometry biegowe", a następnie punktowane jak bieg (5 pkt za km). Rowery elektryczne nie liczą się. Spacer punktowany od 3 km.</p>
+    <p>Przykłady: spacer 6 km = 35 pkt; rower 25 km = 57,5 pkt; pływanie 1 km = 45 pkt.</p>
+
+    <h2>4. Siłownia, joga i trening na czas</h2>
+    <ul>
+      <li>Stała wartość 30 punktów, niezależnie od długości treningu.</li>
+      <li>Minimum 30 minut.</li>
+      <li>Liczy się jeden trening na czas dziennie (najdłuższy).</li>
+    </ul>
+    <p>Przykład dnia mieszanego: bieg 8 km + siłownia 60 min = 20 + 40 + 30 = 90 punktów.</p>
+
+    <h2>5. Liczymy 5 najlepszych dni</h2>
+    <p>Do wyniku tygodniowego liczy się 5 dni o najwyższej punktacji. Dwa dni wolne nie obniżają wyniku.</p>
+
+    <h2>6. Bonusy tygodniowe</h2>
+    <p>Bonus za regularność (liczba aktywnych dni): 3 dni = +20, 4 dni = +40, 5 dni = +60.</p>
+    <p>Bonus biegowy (dni z bieganiem): 2 dni = +10, 3 dni = +25, 4 dni = +50.</p>
+
+    <h2>7. Bonus drużynowy</h2>
+    <p>Raz w tygodniu drużyna dzieli pulę 600 punktów. Komplet = liczba osób x 5 dni (dla szóstki: 30 dni).</p>
+    <table>
+      <tr><th>Zebrane dni</th><th>Bonus</th></tr>
+      <tr><td>80% i więcej</td><td>600 pkt</td></tr>
+      <tr><td>ok. 70%</td><td>450 pkt</td></tr>
+      <tr><td>ok. 60%</td><td>300 pkt</td></tr>
+      <tr><td>ok. 45%</td><td>150 pkt</td></tr>
+      <tr><td>poniżej 45%</td><td>0 pkt</td></tr>
+    </table>
+
+    <h2>8. Punkty ujemne (NOWOŚĆ)</h2>
+    <p>Cel: 5 aktywnych dni w tygodniu (dwa dni wolne są darmowe). Za każdy brakujący aktywny dzień poniżej 5 odejmuje się 20 punktów.</p>
+    <table>
+      <tr><th>Aktywne dni</th><th>Kara</th></tr>
+      <tr><td>5, 6 lub 7 dni</td><td>0</td></tr>
+      <tr><td>4 dni</td><td>-20</td></tr>
+      <tr><td>3 dni</td><td>-40</td></tr>
+      <tr><td>2 dni</td><td>-60</td></tr>
+      <tr><td>1 dzień</td><td>-80</td></tr>
+      <tr><td>0 dni</td><td>-100</td></tr>
+    </table>
+    <p>Podłoga na zero: wynik tygodniowy nie może spaść poniżej 0.</p>
+
+    <h2>9. Wylot z drużyny — DSQ (NOWOŚĆ)</h2>
+    <p>Mniej niż 3 aktywne dni w tygodniu (2, 1 lub 0) oznacza wylot z drużyny do końca miesiąca (oznaczenie DSQ).</p>
+    <ul>
+      <li>Zawodnik gra dalej indywidualnie i może zdobywać punkty.</li>
+      <li>Nie liczy się do drużyny (ani do sumy, ani do bonusu).</li>
+      <li>Punkty ujemne zawodnika kasują się, dodatnie pozostają w tabeli indywidualnej.</li>
+    </ul>
+    <p>O DSQ decyduje organizator przy zamykaniu tygodnia; przypadki losowe (choroba, wyjazd) mogą być uwzględnione.</p>
+
+    <h2>10. Wspólna tabela wyników (NOWOŚĆ)</h2>
+    <ul>
+      <li>Tabela pokazuje wszystkich uczestników w jednym rankingu, posortowanych według punktów.</li>
+      <li>Każdy oznaczony kolorem drużyny (Grupa 1 czerwony, Grupa 2 niebieski).</li>
+      <li>Wynik zawiera udział w bonusie drużynowym, dzielony równo w drużynie.</li>
+      <li>Rywalizacja drużynowa dostępna na osobnej zakładce oraz na górnym pasku.</li>
+    </ul>
+
+    <h2>11. Uczciwość i weryfikacja</h2>
+    <ul>
+      <li>Każda aktywność zarejestrowana przez zegarek lub telefon (np. Strava, Garmin, Apple Health, Google Fit).</li>
+      <li>Zrzut ekranu wrzucany na grupę w dniu wykonania, z widocznym rodzajem aktywności, czasem lub dystansem oraz danymi identyfikującymi osobę.</li>
+      <li>Aktywność liczy się w dniu wykonania. Wrzucona po zamknięciu tygodnia nie zostanie zaliczona.</li>
+      <li>Bieg na bieżni: zrzut musi wyraźnie pokazywać przebiegnięty dystans z wyświetlacza maszyny. Bez tego bieg nie zostanie zaliczony.</li>
+      <li>Rower: wymagane zdjęcie roweru zrobione w trakcie wycieczki (nie na starcie ani na mecie). Cel: dowód, że nie jest to rower elektryczny. Bez zdjęcia przejażdżka nie zostanie zaliczona.</li>
+      <li>Aktywność w pracy: liczy się świadomy sport w czasie wolnym, nie ruch będący częścią obowiązków służbowych. Spacer w przerwie tak, chodzenie podczas pracy nie.</li>
+    </ul>
+
+    <h2>12. Limit wkładu do drużyny</h2>
+    <p>Wkład jednej osoby do wyniku drużyny to maksymalnie 200% podzielone przez liczbę osób w drużynie (dla szóstki około 33% sumy drużyny). Punkty ponad limit pozostają w tabeli indywidualnej.</p>
+
+    <h2>13. Aktywny dzień i remisy</h2>
+    <p>Aktywny dzień to dzień z co najmniej jedną zaliczoną aktywnością: bieg min. 3 km, spacer min. 3 km, dowolny dystans roweru lub pływania, albo trening na czas min. 30 min.</p>
+    <p>Remis w tabeli: przy równych punktach wyżej jest osoba z większą liczbą aktywnych dni. Przy dalszym remisie zawodnicy zajmują to samo miejsce.</p>
+
+    <p class="print-tip">Wersja tekstowa do druku. Kolorowa wersja z przykładami dostępna w zakładce „Kolorowy". Pytania: zakładka „Kontakt".</p>
+  </div>
+
+  </div>
+
+  <!-- ZAKŁADKA 3: KONTAKT -->
+  <div class="pane" id="pane3">
+
+  <div class="contact">
+    <h2>✉️ Kontakt z organizatorem</h2>
+    <p class="lead">Masz pytanie o zasadę, problem techniczny albo uwagę? Napisz — wiadomość otworzy się w Twojej aplikacji pocztowej, gotowa do wysłania.</p>
+    <div class="field">
+      <label for="cName">Twoje imię</label>
+      <input id="cName" type="text" placeholder="np. Kuba" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="cTopic">Temat</label>
+      <select id="cTopic">
+        <option>Pytanie o zasadę</option>
+        <option>Problem techniczny (apka / zegarek)</option>
+        <option>Zgłoszenie aktywności</option>
+        <option>Uwaga / propozycja</option>
+        <option>Inne</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="cMsg">Wiadomość</label>
+      <textarea id="cMsg" placeholder="Napisz, o co chodzi..."></textarea>
+    </div>
+    <button class="send-btn" onclick="sendMail()">Napisz do organizatora</button>
+    <div class="note note-info">Wiadomość trafi na adres <a class="mail" href="mailto:palito@o2.pl">palito@o2.pl</a>. Jeśli formularz nie otworzy poczty, napisz bezpośrednio na ten adres.</div>
+  </div>
+
+  </div>
+
   <footer>
     <div class="big">Forma na lata, nie na lato 🌴</div>
-    Aktywny wrzesień 2026 · regulamin<br>
-    Masz pytanie o zasadę? Pisz na grupę.
+    Aktywny wrzesień 2026 · regulamin
   </footer>
 
 </div>
+
+<script>
+function showTab(n){
+  for(var i=1;i<=3;i++){
+    document.getElementById('pane'+i).classList.toggle('on', i===n);
+    document.getElementById('tabBtn'+i).classList.toggle('on', i===n);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function sendMail(){
+  var name=(document.getElementById('cName').value||'').trim();
+  var topic=document.getElementById('cTopic').value;
+  var msg=(document.getElementById('cMsg').value||'').trim();
+  var subject='[Aktywny wrzesień] '+topic+(name?(' — '+name):'');
+  var body=(name?('Od: '+name+'\n\n'):'')+msg;
+  window.location.href='mailto:palito@o2.pl?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+}
+</script>
 </body>
 </html>
